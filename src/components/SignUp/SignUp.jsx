@@ -3,10 +3,11 @@ import Navbar from '../NavBar/Navbar'
 import { ToastContainer,toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { signup } from '../Service/SignupService';
-// import {useHistory} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 const SignUp = () => {
+  const navigate= useNavigate();
   // const history = useHistory();
 
   const [formData, setFormData] = useState({
@@ -34,7 +35,7 @@ const SignUp = () => {
     // Validation logic
     const EmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const phoneRegex = /^\d{10}$/;
-    const PasswordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}$/;
+    const PasswordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{5,}$/;
 
     let newErrors = {};
     const requiredFields = ['FirstName', 'LastName', 'Email', 'Address', 'PhoneNo', 'Password'];
@@ -72,10 +73,9 @@ const SignUp = () => {
 
     if (Object.keys(newErrors).length === 0) {
       
-      toast.success('Form submitted successfully!');
       signup(formData).then(()=>{
         toast.success('Form submitted successfully!');
-        history.push('/login');
+        navigate('/login');
         setFormData({  
           FirstName: '',
           LastName: '',
@@ -87,8 +87,12 @@ const SignUp = () => {
       })
       .catch((error)=>{
         if (error.response) {
-          console.error('Backend Error:', error.response.data);
-          toast.error(error.response.data);
+          let message=error.response.data.message;
+          if(message.PhoneNo) 
+            toast.error(error.response.data.message.PhoneNo[0]);
+          if(message.Email) 
+            toast.error(error.response.data.message.Email[0]);
+
         } else if (error.request) {
           console.error('No response received from the server:', error.request);
           toast.error("No response received from the server");
@@ -107,7 +111,7 @@ const SignUp = () => {
 
   return (
     <>
-    <Navbar/>
+    <Navbar isAuthenticate={false}/>
     <div className="min-h-screen py-6 flex flex-col justify-center sm:py-10  bg-white dark:bg-gray-900 dark:text-white duration-200" style={{ paddingTop: '0px' }}>
 		<div className="relative py-3 sm:max-w-xl sm:mx-auto" >
 			<div
@@ -121,28 +125,28 @@ const SignUp = () => {
 					<div className="divide-y divide-gray-200">
 						<div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
             <div className="relative">
-								<input autocomplete="off" id="FirstName" name="FirstName"  value={formData.FirstName} type="text" onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="First Name" />
-								<label for="FirstName" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">First Name</label>
+								<input autoComplete="off" id="FirstName" name="FirstName"  value={formData.FirstName} type="text" onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="First Name" />
+								<label htmlFor="FirstName" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">First Name</label>
 							</div>
               <div className="relative">
-								<input autocomplete="off" id="LastName" name="LastName" value={formData.LastName} type="text" onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Last Name" />
-								<label for="LastName" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Last Name</label>
+								<input autoComplete="off" id="LastName" name="LastName" value={formData.LastName} type="text" onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Last Name" />
+								<label htmlFor="LastName" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Last Name</label>
 							</div>
               <div className="relative">
-								<input autocomplete="off" id="Email" name="Email" type="text" value={formData.Email} onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Email Address" />
-								<label for="Email" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email Address</label>
+								<input autoComplete="off" id="Email" name="Email" type="text" value={formData.Email} onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Email Address" />
+								<label htmlFor="Email" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email Address</label>
 							</div>
               <div className="relative">
-								<input autocomplete="off" id="Address" name="Address" type="text" value={formData.Address} onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Address" />
-								<label for="Address" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Address</label>
+								<input autoComplete="off" id="Address" name="Address" type="text" value={formData.Address} onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Address" />
+								<label htmlFor="Address" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Address</label>
 							</div>
 							<div className="relative">
-								<input autocomplete="off" id="PhoneNo" name="PhoneNo" type="text" value={formData.PhoneNo} onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Phone Number" />
-								<label for="PhoneNo" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Phone Number</label>
+								<input autoComplete="off" id="PhoneNo" name="PhoneNo" type="text" value={formData.PhoneNo} onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Phone Number" />
+								<label htmlFor="PhoneNo" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Phone Number</label>
 							</div>
 							<div className="relative">
-								<input autocomplete="off" id="Password" name="Password" type="Password"  value={formData.Password} onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password" />
-								<label for="Password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
+								<input autoComplete="off" id="Password" name="Password" type="Password"  value={formData.Password} onChange={handleChange} className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password" />
+								<label htmlFor="Password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
 							</div>
 							<div className="relative">
 								<button onClick={handleSubmit} className="bg-blue-500 text-white rounded-md px-2 py-1">Submit</button>
