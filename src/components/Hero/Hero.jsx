@@ -1,8 +1,8 @@
 import {React,useState} from 'react'
-import Book1 from '../../../public/assets/Books/book1.jpg'
-import Book2 from '../../../public/assets/Books/book2.jpg'
-import Book3 from '../../../public/assets/Books/book3.jpg'
-import Vector from '../../../public/assets/website/blue-pattern.png'
+// import Book1 from '../../../public/assets/Books/book1.jpg'
+// import Book2 from '../../../public/assets/Books/book2.jpg'
+// import Book3 from '../../../public/assets/Books/book3.jpg'
+import Vector from '/assets/website/blue-pattern.png'
 const url1 = 'https://cdn.chec.io/merchants/28663/assets/jmHrbyaTb3c6aRym%7Cbook1.jpg';
 const url2 = 'https://cdn.chec.io/merchants/28663/assets/il0F5AytRzE9fdoO%7C1.jpg';
 const url3 = 'https://cdn.chec.io/merchants/28663/assets/pihstQgqSOde2WFB%7C1.jpg';

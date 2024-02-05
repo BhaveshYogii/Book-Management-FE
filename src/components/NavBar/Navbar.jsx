@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../../public/assets/website/logo.png'
+import Logo from '/assets/website/logo.png'
 import { FaCaretDown } from "react-icons/fa";
 import {FaCartShopping} from "react-icons/fa6"
 import Darkmode from './Darkmode';
@@ -7,12 +7,12 @@ const Menu = [
   {
     id: 1,
     name: "Home",
-    link: "/#",
+    link: "/",
   },
   {
     id: 2,
     name: "Login",
-    link: "/#",
+    link: "/login",
   },
 ];
 const DropdownLinks = [
@@ -39,7 +39,7 @@ const DropdownLinks = [
 const Navbar = () => {
   return (
     <div className='shadow-lg bg white dark:bg-gray-900 dark:text-white duration-200'>
-        <div className="container py-3 sm:py-0">
+        <div className="container py-3 sm:py-0" style={{ paddingLeft: '0px',paddingRight:'0px'}}>
             <div className="flex justify-between items-center">
                 <div>
                     <a href="#" className='font-bold text-2xl sm:text-3xl flex gap-2'>
