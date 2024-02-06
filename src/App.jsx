@@ -8,6 +8,7 @@ import {
 import Login from './components/Login/Login';
 import Home from './components/Hero/Home';
 import SignUp from './components/SignUp/SignUp';
+import BookInfo from './components/BookInfo/BookInfo';
 
 const App = () => {
   return(
@@ -31,6 +32,12 @@ const App = () => {
             exact path='/signup' 
             element={<SignUp/>}
             />     
+          }
+          {
+            <Route
+              exact path='/my_book/:idx'
+              element = {<BookInfo/>}
+            />
           }
         </Routes>
       </BrowserRouter>
