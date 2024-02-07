@@ -16,7 +16,6 @@ const BookInfo = () => {
   const navigate = useNavigate();
   let session = document.cookie.match(/session_key=([^;]*)/);
 
-
   const addToCart = (BookId, Quantity) => {
     if (session == null) {
       toast.error("Log in First and try again.");
@@ -31,9 +30,30 @@ const BookInfo = () => {
           TotalQuantity: Quantity,
         })
         .then((res) => {
-          toast.success("Book added successfully!");
+          if (res.data.message) {
+            toast.success(res.data.message);
+          }
+          if (res.data.error) {
+            toast.error(res.data.error);
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            let message = error.response.data;
+            if (message.error) toast.error(message.error);
+          } else if (error.request) {
+            console.error(
+              "No response received from the server:",
+              error.request
+            );
+            toast.error("No response received from the server");
+          } else {
+            console.error("Error during request setup:", error.message);
+            toast.error("An error occurred during the request");
+          }
         });
     } catch (error) {
+      console.error("Error during adding to cart:", error);
       toast.error("Something went wrong. Please try again.");
     }
   };
@@ -51,17 +71,37 @@ const BookInfo = () => {
           BookObj: BookId,
         })
         .then((res) => {
-          toast.success("Book added successfully!");
+          if (res.data.message) {
+            toast.success(res.data.message);
+          }
+          if (res.data.error) {
+            toast.error(res.data.error);
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            let message = error.response.data;
+            if (message.error) toast.error(message.error);
+          } else if (error.request) {
+            console.error(
+              "No response received from the server:",
+              error.request
+            );
+            toast.error("No response received from the server");
+          } else {
+            console.error("Error during request setup:", error.message);
+            toast.error("An error occurred during the request");
+          }
         });
     } catch (error) {
-      console.log(error);
+      console.error("Error during adding to cart:", error);
       toast.error("Something went wrong. Please try again.");
     }
   };
 
   return (
     <div>
-      <Navbar isAuthenticate={location.state.isAuthenticate}/>
+      <Navbar isAuthenticate={location.state.isAuthenticate} />
       <div className="flex justufy-center items-center h-100">
         <Container className="product-view">
           <Grid container>
@@ -144,7 +184,7 @@ const BookInfo = () => {
         </Container>
         <ToastContainer
           position="top-center"
-          autoClose={5000}
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick

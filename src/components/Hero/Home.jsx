@@ -8,8 +8,8 @@ import BestBook from '../BestBooks/BestBook';
 const Home = () => {
   const navigate=useNavigate();
 	const [isAuthenticate,setAuthenticate] = useState(false);
+  let session_key = document.cookie.match(/session_key=([^;]*)/);
   useEffect(()=>{
-    let session_key = document.cookie.match(/session_key=([^;]*)/);
     
     if(!session_key){
       setAuthenticate(false);
@@ -20,9 +20,8 @@ const Home = () => {
         setAuthenticate(true);
       }
     }
-    
 
-  },[])
+  },[session_key])
   return (
     <>
         <Navbar isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate}/>

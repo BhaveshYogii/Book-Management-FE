@@ -64,7 +64,7 @@ const UploadBooks = () => {
     <div>
     <Navbar/>
     <h2 className='mb-8 h-full text-3xl font-bold text-center mt-5'>Upload A Book</h2>
-    <div className='px-4 mt-12 flex justify-center h-full' style={{height: "82vh"}}>
+    <div className='px-4 mt-12 flex justify-center h-full' style={{minHeight: "82vh"}}>
     <form onSubmit={handleSubmit} className="flex md:w-[900px] flex-col flex-wrap gap-4 justify-center">
     {/* 1st Row */}
         <div className='flex gap-8'>

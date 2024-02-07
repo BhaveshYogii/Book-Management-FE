@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
 import Logo from "/assets/website/logo.png";
 import { FaCartShopping } from "react-icons/fa6";
 import Darkmode from "./Darkmode";
 import { FaHeart } from "react-icons/fa";
-import {Link, useNavigate} from "react-router-dom";
-import { ToastContainer,toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 // const DropdownLinks = [
 //   {
@@ -53,29 +53,50 @@ const DropdownLinks = [
   },
 ];
 
-
 const Navbar = (props) => {
+  const navigate = useNavigate();
+  const [requested,setisRequested]=useState(false);
 
-  const navigate=useNavigate();
-
-  const handleUserDropdown= (data)=>{
-    if(data.name=="Logout"){
-      let session_key = document.cookie.match(/session_key=([^;]*)/)[1];
-      let temp=session_key;
-      try {
-        axios.post('http://127.0.0.1:8000/logout/',{
-            session_key: temp,
-        }).then((res)=>{
-            document.cookie = `session_key=${session_key}; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/;`;
-            toast.success('Logged out successfully!');
-            navigate('/');
+  useEffect(()=>{
+    let session_key = document.cookie.match(/session_key=([^;]*)/)[1];
+    try {
+      axios
+        .post("http://127.0.0.1:8000/getrequeststatus/", {
+          session_key: session_key,
+        })
+        .then((res) => {
+          document.cookie = `session_key=${session_key}; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/;`;
+          toast.success("Logged out successfully!");
+          navigate("/");
         });
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+      // console.error("Error during login:", error);
+    }
+  });
+
+
+  const handleUserDropdown = (data) => {
+    if (data.name == "Logout") {
+      let session_key = document.cookie.match(/session_key=([^;]*)/)[1];
+      let temp = session_key;
+      try {
+        axios
+          .post("http://127.0.0.1:8000/logout/", {
+            session_key: temp,
+          })
+          .then((res) => {
+            document.cookie = `session_key=${session_key}; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/;`;
+            toast.success("Logged out successfully!");
+            navigate("/");
+          });
       } catch (error) {
         toast.error("Something went wrong. Please try again.");
         // console.error("Error during login:", error);
       }
     }
-  }
+    
+  };
 
   return (
     <div className="shadow-lg bg white dark:bg-gray-900 dark:text-white duration-200">
@@ -95,35 +116,47 @@ const Navbar = (props) => {
               <Darkmode />
             </div>
             <ul className="items-center gap-4 hidden sm:flex">
-                <li >
-                  <a
-                    className="inline-block py-4 px-4 hover:text-primary duration-200"
-                    href="/"
-                  >
-                    Home
-                  </a>
-                </li>
-                {props.isAuthenticate ? (
+              <li>
+                <Link
+                  to={"/"}
+                  className="inline-block py-4 px-4 hover:text-primary duration-200"
+                  state={{
+                    isAuthenticate: props.isAuthenticate,
+                  }}
+                >
+                  Home
+                </Link>
+              </li>
+              {props.isAuthenticate ? (
                 <>
-                <li >
-                  <a
-                    className="inline-block py-4 px-4 hover:text-primary duration-200"
-                    href="/cart"
-                  >
-                    <div className="flex justify-center items-center gap-1">Cart <FaCartShopping/> </div>
-                  </a>
-                </li>
-                <li >
-                  <a
-                    className="inline-block py-4 px-4 hover:text-primary duration-200"
-                    href="#"
-                  >
-                    <div className="flex justify-center items-center gap-1">Fav <FaHeart/> </div>
-                  </a>
-                </li>
-                </>):
+                  <li>
+                    <Link
+                      to={"/cart"}
+                      className="inline-block py-4 px-4 hover:text-primary duration-200"
+                      state={{
+                        isAuthenticate: props.isAuthenticate,
+                      }}
+                    >
+                      <div className="flex justify-center items-center gap-1">
+                        Cart <FaCartShopping />{" "}
+                      </div>
+                    </Link>
+                  </li>
+                  <li>
+                    
+                    <a
+                      className="inline-block py-4 px-4 hover:text-primary duration-200"
+                      href="#"
+                    >
+                      <div className="flex justify-center items-center gap-1">
+                        Fav <FaHeart />{" "}
+                      </div>
+                    </a>
+                  </li>
+                </>
+              ) : (
                 <span></span>
-              }
+              )}
               {/* dropdown section  */}
             </ul>
             {props.isAuthenticate ? (
@@ -145,16 +178,31 @@ const Navbar = (props) => {
                   <ul>
                     {DropdownLinks.map((data, index) => (
                       <li key={index}>
+                        {(index==4 && requested) ?
+                        (
+                          <Link
+                          to={data.link}
+                          className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
+                          onClick={(e) => handleUserDropdown(data)}
+                          state={{
+                            isAuthenticate: props.isAuthenticate,
+                          }}>
+                          Request - {requestStatus}
+                        </Link>
+                        )
+                        :
+                        (
                         <Link
                           to={data.link}
                           className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
-                          onClick={(e)=>handleUserDropdown(data)}
+                          onClick={(e) => handleUserDropdown(data)}
                           state={{
-                            isAuthenticate:props.isAuthenticate,
+                            isAuthenticate: props.isAuthenticate,
                           }}
                         >
                           {data.name}
-                        </Link>
+                        </Link>)
+                        }
                       </li>
                     ))}
                   </ul>
