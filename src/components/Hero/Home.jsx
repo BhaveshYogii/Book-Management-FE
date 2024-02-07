@@ -25,12 +25,11 @@ const Home = () => {
   },[])
   return (
     <>
-        <Navbar isAuthenticate={isAuthenticate}/>
+        <Navbar isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate}/>
         <Hero/>
-        <Search/>
-        <BestBook/>
+        <Search isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate}/>
     </>
   )
 }
 
-export default Home
+export default Home;
