@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
 import Logo from "/assets/website/logo.png";
 import { FaCartShopping } from "react-icons/fa6";
@@ -8,24 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-// const DropdownLinks = [
-//   {
-//     name: "Trending Books",
-//     link: "/#",
-//   },
-//   {
-//     name: "Best Selling",
-//     link: "/#",
-//   },
-//   {
-//     name: "Authors",
-//     link: "/#",
-//   },
-//   {
-//     name: "Best Seller",
-//     link: "/#services",
-//   },
-// ];
+
 const DropdownLinks = [
   {
     name: "Your Profile",
@@ -55,27 +38,7 @@ const DropdownLinks = [
 
 const Navbar = (props) => {
   const navigate = useNavigate();
-  const [requested,setisRequested]=useState(false);
-
-  useEffect(()=>{
-    let session_key = document.cookie.match(/session_key=([^;]*)/)[1];
-    try {
-      axios
-        .post("http://127.0.0.1:8000/getrequeststatus/", {
-          session_key: session_key,
-        })
-        .then((res) => {
-          document.cookie = `session_key=${session_key}; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/;`;
-          toast.success("Logged out successfully!");
-          navigate("/");
-        });
-    } catch (error) {
-      toast.error("Something went wrong. Please try again.");
-      // console.error("Error during login:", error);
-    }
-  });
-
-
+  
   const handleUserDropdown = (data) => {
     if (data.name == "Logout") {
       let session_key = document.cookie.match(/session_key=([^;]*)/)[1];
@@ -95,7 +58,6 @@ const Navbar = (props) => {
         // console.error("Error during login:", error);
       }
     }
-    
   };
 
   return (
@@ -178,20 +140,6 @@ const Navbar = (props) => {
                   <ul>
                     {DropdownLinks.map((data, index) => (
                       <li key={index}>
-                        {(index==4 && requested) ?
-                        (
-                          <Link
-                          to={data.link}
-                          className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
-                          onClick={(e) => handleUserDropdown(data)}
-                          state={{
-                            isAuthenticate: props.isAuthenticate,
-                          }}>
-                          Request - {requestStatus}
-                        </Link>
-                        )
-                        :
-                        (
                         <Link
                           to={data.link}
                           className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
@@ -201,8 +149,7 @@ const Navbar = (props) => {
                           }}
                         >
                           {data.name}
-                        </Link>)
-                        }
+                        </Link>
                       </li>
                     ))}
                   </ul>

@@ -29,9 +29,8 @@ const SellerSignup = () => {
                   })
                   .catch((error)=>{
                     if (error.response) {
-                      let message=error.response.data.message;
-                      console.log(message);
-                      toast.error(message);
+                      if(error.response.data.message) toast.success(error.response.data.message);
+                      if(error.response.data.error) toast.error(error.response.data.error);
                     } else if (error.request) {
                       console.error('No response received from the server:', error.request);
                       toast.error("No response received from the server");
@@ -84,7 +83,7 @@ const SellerSignup = () => {
             </div>
         </div>
     </div>
-    <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover />
+    <ToastContainer position="top-center" autoClose={2000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover />
     </>
   )
 }
