@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
 import Logo from "/assets/website/logo.png";
 import { FaCartShopping } from "react-icons/fa6";
@@ -9,36 +9,74 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const DropdownLinks = [
-  {
-    name: "Your Profile",
-    link: "/profile",
-  },
-  {
-    name: "Your Orders",
-    link: "/order",
-  },
-  {
-    name: "Wishlist",
-    link: "/list",
-  },
-  {
-    name: "Cart",
-    link: "/cart",
-  },
-  {
-    name: "Want to be Seller ?",
-    link: "/seller-request",
-  },
-  {
-    name: "Logout",
-    link: "#",
-  },
-];
-
 const Navbar = (props) => {
+  const [sellerRequestTitle, setRequestTitle] = useState("Want to be Seller ?");
+  const [sellerRequestLink, setRequestLink] = useState("/seller-request");
+  const [seller, setSeller] = useState(false);
   const navigate = useNavigate();
-  
+  let session = document.cookie.match(/session_key=([^;]*)/);
+
+  useEffect(() => {
+    if (session) {
+      try {
+        let session_key = session[1];
+        axios
+          .post("http://127.0.0.1:8000/getrole/", {
+            session_key: session_key,
+          })
+          .then((res) => {
+            if (res.data.role == "Seller") setSeller(true);
+          })
+          .catch((error) => {
+            if (error.response) {
+            } else if (error.request) {
+              console.error(
+                "No response received from the server:",
+                error.request
+              );
+            } else {
+              console.error("Error during request setup:", error.message);
+            }
+          });
+      } catch (error) {
+        console.error("Error during adding to cart:", error);
+      }
+    }
+  }, []);
+  const DropdownLinks = [
+    {
+      name: "Your Profile",
+      link: "/profile",
+    },
+    {
+      name: "Your Orders",
+      link: "/orders",
+    },
+    {
+      name: "Wishlist",
+      link: "/list",
+    },
+    {
+      name: "Cart",
+      link: "/cart",
+    },
+    {
+      name: sellerRequestTitle,
+      link: sellerRequestLink,
+    },
+    {
+      name: "Logout",
+      link: "#",
+    },
+  ];
+
+  useEffect(() => {
+    if (seller == true) {
+      setRequestTitle("Seller Dashboard");
+      setRequestLink("/seller-dashboard");
+    }
+  }, [seller]);
+
   const handleUserDropdown = (data) => {
     if (data.name == "Logout") {
       let session_key = document.cookie.match(/session_key=([^;]*)/)[1];
@@ -52,6 +90,7 @@ const Navbar = (props) => {
             document.cookie = `session_key=${session_key}; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/;`;
             toast.success("Logged out successfully!");
             navigate("/");
+            window.location.reload();
           });
       } catch (error) {
         toast.error("Something went wrong. Please try again.");
@@ -59,7 +98,6 @@ const Navbar = (props) => {
       }
     }
   };
-
   return (
     <div className="shadow-lg bg white dark:bg-gray-900 dark:text-white duration-200">
       <div
@@ -105,16 +143,32 @@ const Navbar = (props) => {
                     </Link>
                   </li>
                   <li>
-                    
-                    <a
+                  <Link
                       className="inline-block py-4 px-4 hover:text-primary duration-200"
-                      href="#"
+                      to={"/list"}
+                      state={{
+                        isAuthenticate: props.isAuthenticate,
+                      }}
                     >
                       <div className="flex justify-center items-center gap-1">
                         Fav <FaHeart />{" "}
                       </div>
-                    </a>
+                    </Link>
                   </li>
+                  {seller ? (
+                    <li>
+                      <a
+                        className="inline-block py-4 px-4 hover:text-primary duration-200"
+                        href="/seller-dashboard"
+                      >
+                        <div className="flex justify-center items-center gap-1">
+                          Seller{" "}
+                        </div>
+                      </a>
+                    </li>
+                  ) : (
+                    <></>
+                  )}
                 </>
               ) : (
                 <span></span>

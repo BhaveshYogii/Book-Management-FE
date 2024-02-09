@@ -64,15 +64,15 @@ const Cart = () => {
   return (
     <>
       <Navbar isAuthenticate={isAuthenticate} />
-      <body>
-        {booksData.length == 0 ? (
+      <div>
+        {booksData && booksData.length == 0 ? (
           <>
-          <div className="flex justify-center items-center" style={{height:"80vh"}}>
+          <div className="flex justify-center items-center" style={{minHeight:"95vh"}}>
             <h1 style={{fontSize:"30px", fontFamily:"Poppins"}}>Your Cart is Empty !</h1>
           </div>
           </>
         ) : (
-          <div className="h-full bg-gray-100 dark:text-white dark:bg-gray-900 pt-20">
+          <div className="h-full bg-gray-100 dark:text-white dark:bg-gray-900 pt-20" style={{minHeight:"95vh"}}>
             <h1 className="mb-10 text-center text-3xl font-bold">Cart Items</h1>
             <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
               <div className="rounded-lg md:w-2/3">
@@ -107,7 +107,7 @@ const Cart = () => {
             </div>
           </div>
         )}
-      </body>
+      </div>
       <ToastContainer
         position="top-center"
         autoClose={2000}

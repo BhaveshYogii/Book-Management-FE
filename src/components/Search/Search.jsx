@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BestBook from "../BestBooks/BestBook";
 const Search = (props) => {
+
   const [isOpen, setIsOpen] = useState(false);
   const [title, setTitle] = useState("All Books");
   const [key, setKey] = useState("BookId");
@@ -36,6 +37,7 @@ const Search = (props) => {
   };
 
   const renderBooks = (title, key, order,limit) => {
+    setSearch(false);
     setTitle(title);
     setKey(key);
     setOrder(order);

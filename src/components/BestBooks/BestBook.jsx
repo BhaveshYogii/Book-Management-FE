@@ -39,7 +39,7 @@ const BestBook = (props) => {
         });
     } catch (error) {
       // console.error("Error during login:", error);
-      // toast.error("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     }
   }, [props.title]);
 
