@@ -29,4 +29,4 @@ const Darkmode = () => {
   )
 }
 
-export default Darkmode
+export default Darkmode;

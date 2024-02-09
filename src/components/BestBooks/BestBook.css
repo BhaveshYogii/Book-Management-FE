@@ -1,0 +1,20 @@
+.Title-div{
+    height: 50px;
+    overflow: hidden;
+}
+.card{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 15px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+.fav-icon-outer{
+    position: relative;
+}
+.fav-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.fav-icon svg{
+    width: 30px!important;
+    height: 20px!important;
+}

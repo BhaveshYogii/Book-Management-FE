@@ -84,8 +84,8 @@ const Hero = () => {
                     {/* {other image list} */}
                     <div className='flex lg:flex-col lg:top-1/2 lg:-translate-y-1/2 lg:py-2 justify-center gap-4 absolute -bottom-[40px] lg:-right-1 bg-white rounded-full'>
                         {
-                            ImageList.map((item)=>(
-                                <img src={item.img} className='max-w-[100px] h-[100px] object-contain inline-block hover:scale-110 duration-200' 
+                            ImageList.map((item,index)=>(
+                                <img key={index} src={item.img} className='max-w-[100px] h-[100px] object-contain inline-block hover:scale-110 duration-200' 
                                     onClick={
                                         ()=>{
                                             setImageId(item.id===1 ? url1 : item.id===2?url2:url3);   
@@ -101,7 +101,7 @@ const Hero = () => {
                     </div>
                 </div>
             </div>
-
+      
         </div>
   </>
 )};
