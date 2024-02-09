@@ -4,6 +4,7 @@ import Hero from './Hero'
 import { useNavigate } from 'react-router-dom';
 import Search from '../Search/Search';
 import BestBook from '../BestBooks/BestBook';
+import Footer from '../Footer/Footer';
 
 const Home = () => {
   const navigate=useNavigate();
@@ -27,6 +28,7 @@ const Home = () => {
         <Navbar isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate}/>
         <Hero/>
         <Search isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate}/>
+        <Footer/>
     </>
   )
 }

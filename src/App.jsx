@@ -16,10 +16,13 @@ import Dashboard from './components/SellerDashboard/Dashboard';
 import "font-awesome/css/font-awesome.css";
 import Order from './components/Order/Orders';
 import Favourite from './components/Favourite/Favourite';
+import RequestTable from './components/Admin/RequestTable';
+import UserData from './components/Admin/UserData';
+import BooksData from './components/Admin/BooksData';
 
 const App = () => {
   return(
-      <div className='bg-white dark:bg-gray-900 dark:text-white duration-200'>
+      <div className='bg-white dark:bg-gray-900 dark:text-white duration-200 min-h-screen'>
       <BrowserRouter>
         <Routes>
           {
@@ -80,6 +83,24 @@ const App = () => {
             <Route
             exact path='/list'
             element = {<Favourite/>}
+          />
+          }
+          {
+            <Route
+            exact path='/admin/request'
+            element = {<RequestTable/>}
+          />
+          }
+          {
+            <Route
+            exact path='/admin/user'
+            element = {<UserData/>}
+          />
+          }
+          {
+            <Route
+            exact path='/admin/books'
+            element = {<BooksData/>}
           />
           }
         </Routes>
