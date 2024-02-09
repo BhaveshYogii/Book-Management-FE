@@ -112,7 +112,7 @@ const Footer = () => {
     <div className='w-full'>
         <div className='border-t-2 border-gray-300/50'>
             <p className='text-center py-10 font-light'>
-                Copyright &copy; 2022. All rights reserved || Made with &#10084;&#65039; by Team - 3
+                Copyright &copy; 2022. All rights reserved || Made with &#10084;&#65039; by Devanshee, Priyanshi and Bhavesh
             </p>
         </div>
     </div>

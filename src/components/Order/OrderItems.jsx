@@ -1,10 +1,8 @@
 import React from "react";
 import { FaFilePdf } from "react-icons/fa";
 import axios from "axios";
-
 const OrderItems = (props) => {
   let session = document.cookie.match(/session_key=([^;]*)/);
-
   const downloadPdf = (orderId) => {
     try {
       let session_key = session[1];
@@ -19,7 +17,6 @@ const OrderItems = (props) => {
           // Create a Blob from the PDF content
           const blob = new Blob([res.data], { type: 'application/pdf' });
           const url = window.URL.createObjectURL(blob);
-  
           // Open the PDF in a new window
           window.open(url, '_blank');
         });
@@ -28,8 +25,6 @@ const OrderItems = (props) => {
       toast.error("Something went wrong. Please try again.");
     }
   };
-  
-
   return (
     <div className="mt-10 card flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
       <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
@@ -48,7 +43,6 @@ const OrderItems = (props) => {
           <p className="text-base text-md mb-4 leading-6 text-gray-600 ">
             {props.order.PlacedTime}
           </p>
-
           {props.order.OrderElements &&
             props.order.OrderElements.map((orderelement) => (
               <div

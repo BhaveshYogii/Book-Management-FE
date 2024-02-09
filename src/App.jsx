@@ -12,7 +12,7 @@ import BookInfo from './components/BookInfo/BookInfo';
 import Cart from './components/Cart/Cart';
 import SellerSignup from './components/SellerSignUp/SellerSignup' ;
 import UploadBooks from './components/SellerDashboard/UploadBooks';
-import Dashboard from './components/SellerDashboard/Dashboard';
+import Dashboard from './components/SellerDashboard/SellerNavbar';
 import "font-awesome/css/font-awesome.css";
 import Order from './components/Order/Orders';
 import Favourite from './components/Favourite/Favourite';
@@ -63,16 +63,16 @@ const App = () => {
           }
           {
             <Route
-              exact path='/seller-dashboard'
-              element = {<Dashboard/>}
+              exact path='/seller/dashboard/upload-book'
+              element = {<UploadBooks/>}
             />
           }
-          {
+          {/* {
             <Route
               exact path='/upload-book'
               element = {<UploadBooks/>}
             />
-          }
+          } */}
           {
             <Route
             exact path='/orders'

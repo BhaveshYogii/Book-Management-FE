@@ -4,13 +4,10 @@ import Navbar from "../NavBar/Navbar";
 import OrderItems from "./OrderItems";
 import { useLocation } from "react-router-dom";
 import "./Order.css";
-
-
 const Order = () => {
   const [orders, setOrders] = useState([]);
   let session = document.cookie.match(/session_key=([^;]*)/);
   const isAuthenticate = useLocation().state.isAuthenticate;
-
   useEffect(() => {
     if (session == null) {
       props.setAuthenticate(false);
@@ -30,7 +27,6 @@ const Order = () => {
       toast.error("Something went wrong. Please try again.");
     }
   }, []);
-
   return (
     <>
       <Navbar isAuthenticate={isAuthenticate}/>
@@ -49,3 +45,10 @@ const Order = () => {
   );
 };
 export default Order;
+
+
+
+
+
+
+

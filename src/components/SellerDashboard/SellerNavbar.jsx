@@ -2,58 +2,28 @@ import React, { useEffect, useState } from "react";
 import { FaRegCircleUser } from "react-icons/fa6";
 import Logo from "/assets/website/logo.png";
 import Darkmode from "../NavBar/Darkmode";
-import { FaHeart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
-const AdminNavBar = (props) => {
+const SellerNavBar = (props) => {
   const [sellerRequestTitle, setRequestTitle] = useState("Want to be Seller ?");
   const [sellerRequestLink, setRequestLink] = useState("/seller-request");
   const [seller, setSeller] = useState(false);
   const navigate = useNavigate();
   let session = document.cookie.match(/session_key=([^;]*)/);
 
-//   useEffect(() => {
-//     if (session) {
-//       try {
-//         let session_key = session[1];
-//         axios
-//           .post("http://127.0.0.1:8000/getrole/", {
-//             session_key: session_key,
-//           })
-//           .then((res) => {
-//             if (res.data.role == "Seller") setSeller(true);
-//           })
-//           .catch((error) => {
-//             if (error.response) {
-//             } else if (error.request) {
-//               console.error(
-//                 "No response received from the server:",
-//                 error.request
-//               );
-//             } else {
-//               console.error("Error during request setup:", error.message);
-//             }
-//           });
-//       } catch (error) {
-//         console.error("Error during adding to cart:", error);
-//       }
-//     }
-//   }, []);
+
   const DropdownLinks = [
+    
     {
-      name: "Requests",
-      link: "/admin/request",
+      name: "Upload Book",
+      link: "/seller/dashboard/upload-book",
     },
     {
-      name: "User",
+      name: "Manage Book",
       link: "/admin/user",
-    },
-    {
-      name: "Books",
-      link: "/admin/books",
     },
     {
       name: "Logout",
@@ -99,7 +69,7 @@ const AdminNavBar = (props) => {
           <div>
             <a href="/" className="font-bold text-2xl sm:text-3xl flex gap-2">
               <img src={Logo} alt="" className="w-10" />
-              Admin Dashboard
+              Seller Dashboard
             </a>
           </div>
           <div className="flex items-center justify-between gap-4">
@@ -107,7 +77,18 @@ const AdminNavBar = (props) => {
               <Darkmode />
             </div>
             <ul className="items-center gap-4 hidden sm:flex">
-              <li>
+            <li>
+                <Link
+                  to={"/"}
+                  className="inline-block py-4 px-4 hover:text-primary duration-200"
+                  state={{
+                    isAuthenticate: props.isAuthenticate,
+                  }}
+                >
+                  Home
+                </Link>
+              </li>
+              {/* <li>
                 <Link
                   to={"/admin/request"}
                   className="inline-block py-4 px-4 hover:text-primary duration-200"
@@ -117,19 +98,19 @@ const AdminNavBar = (props) => {
                 >
                   Requests
                 </Link>
-              </li>
+              </li> */}
               {/* {props.isAuthenticate ? ( */}
                 <>
                   <li>
                     <Link
-                      to={"/admin/user"}
+                      to={"/seller/dashboard/upload-book"}
                       className="inline-block py-4 px-4 hover:text-primary duration-200"
                     //   state={{
                     //     isAuthenticate: props.isAuthenticate,
                     //   }}
                     >
                       <div className="flex justify-center items-center gap-1">
-                        Users
+                        Upload Book
                       </div>
                     </Link>
                   </li>
@@ -142,7 +123,7 @@ const AdminNavBar = (props) => {
                     //   }}
                     >
                       <div className="flex justify-center items-center gap-1">
-                        Books
+                        Manage Books
                       </div>
                     </Link>
                   </li>
@@ -187,4 +168,4 @@ const AdminNavBar = (props) => {
     </div>
   );
 };
-export default AdminNavBar;
+export default SellerNavBar;

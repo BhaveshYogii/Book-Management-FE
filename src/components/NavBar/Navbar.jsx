@@ -159,7 +159,7 @@ const Navbar = (props) => {
                     <li>
                       <a
                         className="inline-block py-4 px-4 hover:text-primary duration-200"
-                        href="/seller-dashboard"
+                        href="/seller/dashboard/upload-book"
                       >
                         <div className="flex justify-center items-center gap-1">
                           Seller{" "}
