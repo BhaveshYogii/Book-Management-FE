@@ -12,10 +12,13 @@ import BookInfo from './components/BookInfo/BookInfo';
 import Cart from './components/Cart/Cart';
 import SellerSignup from './components/SellerSignUp/SellerSignup' ;
 import UploadBooks from './components/SellerDashboard/UploadBooks';
-import Dashboard from './components/SellerDashboard/Dashboard';
+import Dashboard from './components/SellerDashboard/SellerNavbar';
 import "font-awesome/css/font-awesome.css";
 import Order from './components/Order/Orders';
 import Favourite from './components/Favourite/Favourite';
+import RequestTable from './components/Admin/RequestTable';
+import UserData from './components/Admin/UserData';
+import BooksData from './components/Admin/BooksData';
 
 const App = () => {
   return(
@@ -60,16 +63,16 @@ const App = () => {
           }
           {
             <Route
-              exact path='/seller-dashboard'
-              element = {<Dashboard/>}
+              exact path='/seller/dashboard/upload-book'
+              element = {<UploadBooks/>}
             />
           }
-          {
+          {/* {
             <Route
               exact path='/upload-book'
               element = {<UploadBooks/>}
             />
-          }
+          } */}
           {
             <Route
             exact path='/orders'
@@ -80,6 +83,24 @@ const App = () => {
             <Route
             exact path='/list'
             element = {<Favourite/>}
+          />
+          }
+          {
+            <Route
+            exact path='/admin/request'
+            element = {<RequestTable/>}
+          />
+          }
+          {
+            <Route
+            exact path='/admin/user'
+            element = {<UserData/>}
+          />
+          }
+          {
+            <Route
+            exact path='/admin/books'
+            element = {<BooksData/>}
           />
           }
         </Routes>

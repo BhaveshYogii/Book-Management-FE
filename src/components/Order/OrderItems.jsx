@@ -5,12 +5,9 @@ import GeneratePdfInvoiceService from "../Service/GeneratePdfInvoiceService";
 
 const OrderItems = (props) => {
   let session = document.cookie.match(/session_key=([^;]*)/);
-
   const downloadPdf = (orderId) => {
     GeneratePdfInvoiceService(session,orderId);
   };
-  
-
   return (
     <div className="mt-10 card flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
       <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
@@ -29,7 +26,6 @@ const OrderItems = (props) => {
           <p className="text-base text-md mb-4 leading-6 text-gray-600 ">
             {props.order.PlacedTime}
           </p>
-
           {props.order.OrderElements &&
             props.order.OrderElements.map((orderelement) => (
               <div

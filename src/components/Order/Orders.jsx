@@ -18,7 +18,6 @@ const Order = (props) => {
     }
     GetOrderElementsService(session,setOrders);
   }, []);
-
   return (
     <>
       <div style={{ minHeight: "95vh" }}>

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, Checkbox, Label, Select, TextInput, Textarea } from 'flowbite-react';
 import { upload } from '../Service/UploadBookService';
 import Navbar from '../NavBar/Navbar'
+import SellerNavBar from './SellerNavbar';
 const UploadBooks = () => {
     const BookCategory = [
         "Fiction",
@@ -62,8 +63,8 @@ const UploadBooks = () => {
     }
   return (
     <div>
-    <Navbar/>
-    <h2 className='mb-8 h-full text-3xl font-bold text-center mt-5'>Upload A Book</h2>
+    <SellerNavBar/>
+    <h2 className='mb-8 h-full text-4xl font-bold text-center my-5'>Upload A Book</h2>
     <div className='px-4 mt-12 flex justify-center h-full' style={{minHeight: "82vh"}}>
     <form onSubmit={handleSubmit} className="flex md:w-[900px] flex-col flex-wrap gap-4 justify-center">
     {/* 1st Row */}
