@@ -28,7 +28,7 @@ const GetRequestStatusService = (session, setRequestStatus) => {
         }
       });
   } catch (error) {
-    console.error("Error during adding to cart:", error);
+    console.error("Error:", error);
   }
 };
 

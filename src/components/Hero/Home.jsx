@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../NavBar/Navbar";
+import React from "react";
 import Hero from "./Hero";
-import { useNavigate } from "react-router-dom";
 import Search from "../Search/Search";
-import GetRoleService from "../Service/GetRoleService";
 import DefaultLayoutHoc from "../../layout/Default.layout";
 const Home = (props) => {
   return (

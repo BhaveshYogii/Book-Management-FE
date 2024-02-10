@@ -6,50 +6,23 @@ import { FaHeart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import LogoutService from "../Service/LogoutService";
 
 const AdminNavBar = (props) => {
-  const [sellerRequestTitle, setRequestTitle] = useState("Want to be Seller ?");
-  const [sellerRequestLink, setRequestLink] = useState("/seller-request");
-  const [seller, setSeller] = useState(false);
-  const navigate = useNavigate();
   let session = document.cookie.match(/session_key=([^;]*)/);
 
-//   useEffect(() => {
-//     if (session) {
-//       try {
-//         let session_key = session[1];
-//         axios
-//           .post("http://127.0.0.1:8000/getrole/", {
-//             session_key: session_key,
-//           })
-//           .then((res) => {
-//             if (res.data.role == "Seller") setSeller(true);
-//           })
-//           .catch((error) => {
-//             if (error.response) {
-//             } else if (error.request) {
-//               console.error(
-//                 "No response received from the server:",
-//                 error.request
-//               );
-//             } else {
-//               console.error("Error during request setup:", error.message);
-//             }
-//           });
-//       } catch (error) {
-//         console.error("Error during adding to cart:", error);
-//       }
-//     }
-//   }, []);
   const DropdownLinks = [
     {
-      name: "Requests",
-      link: "/admin/request",
+      name: "Home",
+      link: "/",
     },
     {
-      name: "User",
-      link: "/admin/user",
+      name: "Requests",
+      link: "/admin/requests",
+    },
+    {
+      name: "Users",
+      link: "/admin/users",
     },
     {
       name: "Books",
@@ -61,32 +34,18 @@ const AdminNavBar = (props) => {
     },
   ];
 
-//   useEffect(() => {
-//     if (seller == true) {
-//       setRequestTitle("Seller Dashboard");
-//       setRequestLink("/seller-dashboard");
-//     }
-//   }, [seller]);
-
   const handleUserDropdown = (data) => {
+    if (!session) {
+      props.setAuthenticate(false);
+      window.location.reload();
+    }
     if (data.name == "Logout") {
-      let session_key = document.cookie.match(/session_key=([^;]*)/)[1];
-      let temp = session_key;
-      try {
-        axios
-          .post("http://127.0.0.1:8000/logout/", {
-            session_key: temp,
-          })
-          .then((res) => {
-            document.cookie = `session_key=${session_key}; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/;`;
-            toast.success("Logged out successfully!");
-            navigate("/");
-            window.location.reload();
-          });
-      } catch (error) {
-        toast.error("Something went wrong. Please try again.");
-        // console.error("Error during login:", error);
-      }
+      const handleLogout = async () => {
+        await LogoutService(session, props);
+        handleRedirectWithDelay("/");
+      };
+
+      handleLogout();
     }
   };
   return (
@@ -106,27 +65,29 @@ const AdminNavBar = (props) => {
             <div>
               <Darkmode />
             </div>
-            <ul className="items-center gap-4 hidden sm:flex">
+            <ul className="items-center gap-2 hidden sm:flex">
               <li>
                 <Link
-                  to={"/admin/request"}
+                  to={"/"}
                   className="inline-block py-4 px-4 hover:text-primary duration-200"
-                //   state={{
-                //     isAuthenticate: props.isAuthenticate,
-                //   }}
                 >
-                  Requests
+                  Home
                 </Link>
               </li>
-              {/* {props.isAuthenticate ? ( */}
+              {props.isAuthenticate ? (
                 <>
                   <li>
                     <Link
-                      to={"/admin/user"}
+                      to={"/admin/requests"}
                       className="inline-block py-4 px-4 hover:text-primary duration-200"
-                    //   state={{
-                    //     isAuthenticate: props.isAuthenticate,
-                    //   }}
+                    >
+                      Requests
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={"/admin/users"}
+                      className="inline-block py-4 px-4 hover:text-primary duration-200"
                     >
                       <div className="flex justify-center items-center gap-1">
                         Users
@@ -134,12 +95,9 @@ const AdminNavBar = (props) => {
                     </Link>
                   </li>
                   <li>
-                  <Link
+                    <Link
                       className="inline-block py-4 px-4 hover:text-primary duration-200"
                       to={"/admin/books"}
-                    //   state={{
-                    //     isAuthenticate: props.isAuthenticate,
-                    //   }}
                     >
                       <div className="flex justify-center items-center gap-1">
                         Books
@@ -147,13 +105,13 @@ const AdminNavBar = (props) => {
                     </Link>
                   </li>
                 </>
-              {/* ) : (
+              ) : (
                 <span></span>
-              )} */}
+              )}
               {/* dropdown section  */}
             </ul>
-           
-            {/* {props.isAuthenticate ? ( */}
+
+            {props.isAuthenticate ? (
               <div className="group relative cursor-pointer ml-3">
                 <span>
                   <FaRegCircleUser className="text-3xl transition duration-300" />
@@ -167,9 +125,6 @@ const AdminNavBar = (props) => {
                           to={data.link}
                           className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
                           onClick={(e) => handleUserDropdown(data)}
-                          state={{
-                            isAuthenticate: props.isAuthenticate,
-                          }}
                         >
                           {data.name}
                         </Link>
@@ -178,9 +133,13 @@ const AdminNavBar = (props) => {
                   </ul>
                 </div>
               </div>
-            {/* ) : (
-              <div></div>
-            )} */}
+            ) : (
+              <div>
+                <button className="from-primary to-secondary px-4 py-2 rounded-full flex items-center gap-3 hover:scale-105 duration-300">
+                <a href="/login">Log In</a>
+              </button>
+              </div>
+            )}
           </div>
         </div>
       </div>

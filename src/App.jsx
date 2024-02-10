@@ -67,12 +67,6 @@ const App = () => {
               element = {<UploadBooks/>}
             />
           }
-          {/* {
-            <Route
-              exact path='/upload-book'
-              element = {<UploadBooks/>}
-            />
-          } */}
           {
             <Route
             exact path='/orders'
@@ -87,13 +81,13 @@ const App = () => {
           }
           {
             <Route
-            exact path='/admin/request'
+            exact path='/admin/requests'
             element = {<RequestTable/>}
           />
           }
           {
             <Route
-            exact path='/admin/user'
+            exact path='/admin/users'
             element = {<UserData/>}
           />
           }

@@ -4,8 +4,9 @@ import Navbar from "../NavBar/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import loginf from "../Service/LoginService";
+import DefaultLayoutHoc from "../../layout/Default.Layout";
 
-const Login = () => {
+const Login = (props) => {
   const navigate = useNavigate();
   const [login, setlogin] = useState({
     Email: "",
@@ -72,7 +73,6 @@ const Login = () => {
   };
   return (
     <>
-      <Navbar isAuthenticate={false} />
       <div
         className="min-h-screen py-6 flex flex-col justify-center sm:py-12 bg-white dark:bg-gray-900 dark:text-white duration-200"
         style={{ paddingTop: "0px" }}
@@ -172,4 +172,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default DefaultLayoutHoc(Login);

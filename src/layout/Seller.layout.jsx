@@ -1,9 +1,9 @@
-import React,{useEffect, useState} from "react";
-import Navbar from "../components/NavBar/Navbar";
+import React ,{useState,useEffect} from "react";
+import SellerNavBar from "../components/SellerDashboard/SellerNavbar";
 import GetRoleService from "../components/Service/GetRoleService";
 import { useNavigate } from "react-router-dom";
 
-const DefaultLayoutHoc =
+const SellerLayoutHoc =
   (Component) =>
   ({ ...props }) => {
 
@@ -11,12 +11,13 @@ const DefaultLayoutHoc =
     const [seller, setSeller] = useState(false);
     const [admin, setAdmin] = useState(false);
     let session = document.cookie.match(/session_key=([^;]*)/);
-    const navigate = useNavigate();
+    const navigate=useNavigate();
     useEffect(() => {
+      if (!session) {
+        setAuthenticate(false);
+        navigate("/login");
+      }
       const func=async()=>{
-        if (!session) {
-          setAuthenticate(false);
-        }
         await GetRoleService(session, setSeller, setAdmin, setAuthenticate);
       }
       func();
@@ -24,10 +25,10 @@ const DefaultLayoutHoc =
 
     return (
       <div>
-        <Navbar isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate} seller={seller} admin={admin}/>
-        <Component {...props} isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate}/>
+        <SellerNavBar isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate} seller={seller}/>
+        <Component {...props} isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate} />
       </div>
     );
   };
 
-export default DefaultLayoutHoc;
+export default SellerLayoutHoc;

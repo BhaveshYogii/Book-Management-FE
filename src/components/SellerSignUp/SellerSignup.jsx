@@ -6,9 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import SellerRequest from "../Service/SellerRequest";
 import GetRequestStatusService from "../Service/GetRequestStatusService";
 import SellerRegisterService from "../Service/SellerRegisterService";
+import DefaultLayoutHoc from "../../layout/Default.Layout";
 
-const SellerSignup = () => {
-  const isAuthenticate = useLocation().state.isAuthenticate;
+const SellerSignup = (props) => {
+  const isAuthenticate = props.isAuthenticate;
   let session = document.cookie.match(/session_key=([^;]*)/);
   const [requestStatus, setRequestStatus] = useState("NULL");
   const [seller, setSeller] = useState({
@@ -25,14 +26,14 @@ const SellerSignup = () => {
   };
 
   useEffect(() => {
-    GetRequestStatusService(session,setRequestStatus);
+    if(session) GetRequestStatusService(session,setRequestStatus);
   }, []);
 
-  useEffect(() => {
-    if (requestStatus != "Pending" && requestStatus != "NULL") {
-      SellerRegisterService(session);
-    }
-  }, [requestStatus]);
+  // useEffect(() => {
+  //   if (requestStatus != "Pending" && requestStatus != "NULL") {
+  //     SellerRegisterService(session);
+  //   }
+  // }, [requestStatus]);
 
   const handleReloadWithDelay = () => {
     setTimeout(() => {
@@ -79,7 +80,6 @@ const SellerSignup = () => {
   };
   return (
     <>
-      <Navbar isAuthenticate={isAuthenticate} />
       <div
         className="min-h-screen py-6 flex flex-col justify-center sm:py-12 bg-white dark:bg-gray-900 dark:text-white duration-200"
         style={{ paddingTop: "0px" }}
@@ -166,4 +166,4 @@ const SellerSignup = () => {
     </>
   );
 };
-export default SellerSignup;
+export default DefaultLayoutHoc(SellerSignup);

@@ -19,7 +19,7 @@ const SellerRegisterService = (session) => {
         }
       });
   } catch (error) {
-    console.error("Error during adding to cart:", error);
+    console.error("Error:", error);
   }
 };
 

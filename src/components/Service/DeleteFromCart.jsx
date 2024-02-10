@@ -7,7 +7,7 @@ const DeleteFromCart = (session, moveToList, bookId) => {
   const handleReloadWithDelay = () => {
     setTimeout(() => {
       window.location.reload();
-    }, 2500);
+    }, 2000);
   };
 
   try {

@@ -4,8 +4,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signup } from "../Service/SignupService";
 import { useNavigate } from "react-router-dom";
+import DefaultLayoutHoc from "../../layout/Default.Layout";
 
-const SignUp = () => {
+const SignUp = (props) => {
   const navigate = useNavigate();
   const handleRedirectWithDelay = (link) => {
     setTimeout(() => {
@@ -139,7 +140,6 @@ const SignUp = () => {
 
   return (
     <>
-      <Navbar isAuthenticate={false} />
       <div
         className="min-h-screen py-6 flex flex-col justify-center sm:py-10  bg-white dark:bg-gray-900 dark:text-white duration-200"
         style={{ paddingTop: "0px" }}
@@ -300,4 +300,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default DefaultLayoutHoc(SignUp);

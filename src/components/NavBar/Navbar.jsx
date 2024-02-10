@@ -26,6 +26,7 @@ const Navbar = (props) => {
       name: "Wishlist",
       link: "/list",
     },
+
     {
       name: "Cart",
       link: "/cart",
@@ -43,9 +44,13 @@ const Navbar = (props) => {
   useEffect(() => {
     if (props.seller == true) {
       setRequestTitle("Seller Dashboard");
-      setRequestLink("/seller-dashboard");
+      setRequestLink("/seller/dashboard/upload-book");
     }
-  }, [props.seller]);
+    if(props.admin==true){
+      setRequestTitle("Admin Dashboard");
+      setRequestLink("/admin/requests");
+    }
+  }, [props.seller, props.admin]);
 
   const handleRedirectWithDelay = (link) => {
     setTimeout(() => {
@@ -114,7 +119,7 @@ const Navbar = (props) => {
                       </div>
                     </Link>
                   </li>
-                  {props.seller ? (
+                  {!props.admin && props.seller ? (
                     <li>
                       <a
                         className="inline-block py-4 px-4 hover:text-primary duration-200"
@@ -122,6 +127,20 @@ const Navbar = (props) => {
                       >
                         <div className="flex justify-center items-center gap-1">
                           Seller{" "}
+                        </div>
+                      </a>
+                    </li>
+                  ) : (
+                    <></>
+                  )}
+                  {props.admin && !props.seller ? (
+                    <li>
+                      <a
+                        className="inline-block py-4 px-4 hover:text-primary duration-200"
+                        href="/admin/requests"
+                      >
+                        <div className="flex justify-center items-center gap-1">
+                          Admin{" "}
                         </div>
                       </a>
                     </li>
@@ -138,9 +157,7 @@ const Navbar = (props) => {
               <span></span>
             ) : (
               <button className="from-primary to-secondary px-4 py-2 rounded-full flex items-center gap-3 hover:scale-105 duration-300">
-                {/* Order */}
                 <a href="/login">Log In</a>
-                {/* <FaCartShopping className='text-xl text-white drop-shadow-sm cursor-pointer' /> */}
               </button>
             )}
             {props.isAuthenticate ? (
@@ -152,6 +169,7 @@ const Navbar = (props) => {
                 <div className="absolute -right-9 z-[10] hidden group-hover:block text-black bg-white p-2 shadow-md w-[150px]">
                   <ul>
                     {DropdownLinks.map((data, index) => (
+
                       <li key={index}>
                         <Link
                           to={data.link}

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const LogoutService = async (session, props) => {
+
   let temp = session[1];
   try {
     await axios

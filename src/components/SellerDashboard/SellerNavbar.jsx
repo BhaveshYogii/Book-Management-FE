@@ -8,12 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 
 const SellerNavBar = (props) => {
-  const [sellerRequestTitle, setRequestTitle] = useState("Want to be Seller ?");
-  const [sellerRequestLink, setRequestLink] = useState("/seller-request");
-  const [seller, setSeller] = useState(false);
   const navigate = useNavigate();
-  let session = document.cookie.match(/session_key=([^;]*)/);
-
 
   const DropdownLinks = [
     
@@ -22,21 +17,11 @@ const SellerNavBar = (props) => {
       link: "/seller/dashboard/upload-book",
     },
     {
-      name: "Manage Book",
-      link: "/admin/user",
-    },
-    {
       name: "Logout",
       link: "#",
     },
   ];
 
-//   useEffect(() => {
-//     if (seller == true) {
-//       setRequestTitle("Seller Dashboard");
-//       setRequestLink("/seller-dashboard");
-//     }
-//   }, [seller]);
 
   const handleUserDropdown = (data) => {
     if (data.name == "Logout") {
@@ -88,42 +73,14 @@ const SellerNavBar = (props) => {
                   Home
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  to={"/admin/request"}
-                  className="inline-block py-4 px-4 hover:text-primary duration-200"
-                //   state={{
-                //     isAuthenticate: props.isAuthenticate,
-                //   }}
-                >
-                  Requests
-                </Link>
-              </li> */}
-              {/* {props.isAuthenticate ? ( */}
                 <>
                   <li>
                     <Link
                       to={"/seller/dashboard/upload-book"}
                       className="inline-block py-4 px-4 hover:text-primary duration-200"
-                    //   state={{
-                    //     isAuthenticate: props.isAuthenticate,
-                    //   }}
                     >
                       <div className="flex justify-center items-center gap-1">
                         Upload Book
-                      </div>
-                    </Link>
-                  </li>
-                  <li>
-                  <Link
-                      className="inline-block py-4 px-4 hover:text-primary duration-200"
-                      to={"/admin/books"}
-                    //   state={{
-                    //     isAuthenticate: props.isAuthenticate,
-                    //   }}
-                    >
-                      <div className="flex justify-center items-center gap-1">
-                        Manage Books
                       </div>
                     </Link>
                   </li>
