@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  // const history = useHistory();
   const handleRedirectWithDelay = (link) => {
     setTimeout(() => {
       navigate(link);
@@ -94,10 +93,10 @@ const SignUp = () => {
       newErrors = {
         ...newErrors,
         Password:
-          "Password must contain at least 1 capital letter, 1 special character, and 1 number. Minimum length is 8 characters.",
+          "Password must contain at least 1 capital letter, 1 special character, and 1 number. Minimum length is 5 characters.",
       };
       toast.error(
-        "Password must contain at least 1 capital letter, 1 special character, and 1 number. Minimum length is 8 characters."
+        "Password must contain at least 1 capital letter, 1 special character, and 1 number. Minimum length is 5 characters."
       );
     }
 

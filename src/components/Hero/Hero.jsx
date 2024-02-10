@@ -66,12 +66,12 @@ const Hero = () => {
                         </h1>
                         <p className='text-sm'>{description}
                         </p>
-                        <div>
+                        {/* <div>
                             <button
                             className='bg-gradient-to-r from-primary to-secondary text-white px-4 py-2 rounded-full hover:scale-105 duration-200 mt-4'>
                                 Order Now
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                     {/* {Image Section} */}
                     <div className='min-h-[450px] flex justify-center items-center relative order-1 sm:order-2'>

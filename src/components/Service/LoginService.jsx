@@ -7,4 +7,4 @@ const loginf = async (userData) => {
       throw error;
     }
   };
-  export {loginf};
+  export default loginf;

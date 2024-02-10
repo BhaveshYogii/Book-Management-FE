@@ -3,41 +3,29 @@ import axios from "axios";
 import { FaRupeeSign } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import { FaHeart } from "react-icons/fa6";
+import DeleteFromCart from "../Service/DeleteFromCart";
+import UpdateCartService from "../Service/UpdateCartService";
 const Items = (props) => {
   let session = document.cookie.match(/session_key=([^;]*)/);
   const [count, setCount] = useState(props.ElementQuantity);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleReloadWithDelay = () => {
-    setTimeout(() => {
-      window.location.reload();
-    }, 2500);
-  };
 
   useEffect(() => {
-    try {
-      let session_key = session[1];
-      axios
-        .post("http://127.0.0.1:8000/updatecart/", {
-          session_key: session_key,
-          BookId: props.BookObj.BookId,
-          new_quantity: count,
-        })
-        .then((res) => {});
-    } catch (error) {
-      console.error("Error during login:", error);
-      toast.error("Something went wrong. Please try again.");
-    }
+    UpdateCartService(session, props.BookObj.BookId, count);
   }, [count]);
+
   const decrement = () => {
     if (count > 1) {
       setCount(count - 1);
     }
     window.location.reload();
   };
+
   const increment = () => {
     setCount(count + 1);
     window.location.reload();
   };
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -49,42 +37,9 @@ const Items = (props) => {
     handleDeleteItem(reply);
   };
   const handleDeleteItem = (moveToList) => {
-    try {
-      let session_key = session[1];
-      axios
-        .delete("http://127.0.0.1:8000/deletefromcart/", {
-          data: {
-            session_key: session_key,
-            MoveToList: moveToList,
-            BookObj: props.BookObj.BookId,
-          },
-        })
-        .then((res) => {
-          if (res.data.message) {
-            toast.success(res.data.message);
-            handleReloadWithDelay();
-          }
-          if (res.data.error) {
-            toast.error(res.data.error);
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            let message = error.response.data;
-            if (message.error) toast.error(message.error);
-          } else if (error.request) {
-            console.error(
-              "No response received from the server:",
-              error.request
-            );
-          } else {
-            console.error("Error during request setup:", error.message);
-          }
-        });
-    } catch (error) {
-      console.error("Error during adding to cart:", error);
-    }
+    DeleteFromCart(session, moveToList, props.BookObj.BookId);
   };
+
   return (
     <>
       {isModalOpen && (

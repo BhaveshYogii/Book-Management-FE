@@ -1,32 +1,13 @@
 import React from "react";
 import { FaFilePdf } from "react-icons/fa";
-import axios from "axios";
+import GeneratePdfInvoiceService from "../Service/GeneratePdfInvoiceService";
+
 
 const OrderItems = (props) => {
   let session = document.cookie.match(/session_key=([^;]*)/);
 
   const downloadPdf = (orderId) => {
-    try {
-      let session_key = session[1];
-      axios
-        .post("http://127.0.0.1:8000/generate_pdf_invoice/", {
-          session_key: session_key,
-          orderId: orderId,
-        }, {
-          responseType: 'arraybuffer', // Ensure binary response
-        })
-        .then((res) => {
-          // Create a Blob from the PDF content
-          const blob = new Blob([res.data], { type: 'application/pdf' });
-          const url = window.URL.createObjectURL(blob);
-  
-          // Open the PDF in a new window
-          window.open(url, '_blank');
-        });
-    } catch (error) {
-      console.error("Error during PDF download:", error);
-      toast.error("Something went wrong. Please try again.");
-    }
+    GeneratePdfInvoiceService(session,orderId);
   };
   
 

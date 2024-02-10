@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { loginf } from "../Service/LoginService";
+import loginf from "../Service/LoginService";
 
 const Login = () => {
   const navigate = useNavigate();

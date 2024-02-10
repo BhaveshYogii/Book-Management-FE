@@ -3,8 +3,9 @@ import Navbar from "../NavBar/Navbar";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { sellerf } from "../Service/SellerRequest";
-import axios from "axios";
+import SellerRequest from "../Service/SellerRequest";
+import GetRequestStatusService from "../Service/GetRequestStatusService";
+import SellerRegisterService from "../Service/SellerRegisterService";
 
 const SellerSignup = () => {
   const isAuthenticate = useLocation().state.isAuthenticate;
@@ -24,65 +25,20 @@ const SellerSignup = () => {
   };
 
   useEffect(() => {
-    try {
-      let session_key = session[1];
-      axios
-        .post("http://127.0.0.1:8000/getrequeststatus/", {
-          session_key: session_key,
-        })
-        .then((res) => {
-          if (res.data.message) {
-            setRequestStatus(res.data.message);
-          }
-          if (res.data.error) {
-            setRequestStatus(res.data.error);
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            let message = error.response.data;
-            if (message.error) setRequestStatus(message.error);
-          } else if (error.request) {
-            console.error(
-              "No response received from the server:",
-              error.request
-            );
-          } else {
-            console.error("Error during request setup:", error.message);
-          }
-        });
-    } catch (error) {
-      console.error("Error during adding to cart:", error);
-    }
+    GetRequestStatusService(session,setRequestStatus);
   }, []);
 
   useEffect(() => {
-    if (requestStatus == "Accepted") {
-      try {
-        let session_key = session[1];
-        axios
-          .post("http://127.0.0.1:8000/sellerregister/", {
-            session_key: session_key,
-          })
-          .then((res) => {
-          })
-          .catch((error) => {
-            if (error.response) {
-            } else if (error.request) {
-              console.error(
-                "No response received from the server:",
-                error.request
-              );
-            } else {
-              console.error("Error during request setup:", error.message);
-            }
-          });
-      } catch (error) {
-        console.error("Error during adding to cart:", error);
-      }
+    if (requestStatus != "Pending" && requestStatus != "NULL") {
+      SellerRegisterService(session);
     }
   }, [requestStatus]);
 
+  const handleReloadWithDelay = () => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+  };
   const checkStatus = (e) => {
     e.preventDefault();
     toast.info(requestStatus);
@@ -90,13 +46,14 @@ const SellerSignup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
-      sellerf(seller)
+      SellerRequest(seller)
         .then((res) => {
           toast.success("Request Sent Successfully");
           setSeller({
             Company: "",
             CompanyLocation: "",
           });
+          handleReloadWithDelay();
         })
         .catch((error) => {
           if (error.response) {

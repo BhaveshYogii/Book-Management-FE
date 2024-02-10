@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from "../NavBar/Navbar";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import "./BookInfo.css";
 import { Container, Grid, Button, Typography } from "@mui/material";
-import { IoMdHeart } from "react-icons/io";
 import { IoIosHeartEmpty } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
+import AddToCartService from "../Service/AddToCartService";
+import AddToListService from "../Service/AddToListService";
 
 const BookInfo = () => {
   const { idx } = useParams();
@@ -15,87 +15,26 @@ const BookInfo = () => {
   const product = location.state.book;
   const navigate = useNavigate();
   let session = document.cookie.match(/session_key=([^;]*)/);
-
+  const handleRedirectWithDelay = (link) => {
+    setTimeout(() => {
+      navigate(link);
+    }, 2500);
+  };
   const addToCart = (BookId, Quantity) => {
     if (session == null) {
       toast.error("Log in First and try again.");
-      return;
-    }
-    try {
-      let session_key = session[1];
-      axios
-        .post("http://127.0.0.1:8000/addtocart/", {
-          session_key: session_key,
-          BookObj: BookId,
-          TotalQuantity: Quantity,
-        })
-        .then((res) => {
-          if (res.data.message) {
-            toast.success(res.data.message);
-          }
-          if (res.data.error) {
-            toast.error(res.data.error);
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            let message = error.response.data;
-            if (message.error) toast.error(message.error);
-          } else if (error.request) {
-            console.error(
-              "No response received from the server:",
-              error.request
-            );
-            toast.error("No response received from the server");
-          } else {
-            console.error("Error during request setup:", error.message);
-            toast.error("An error occurred during the request");
-          }
-        });
-    } catch (error) {
-      console.error("Error during adding to cart:", error);
-      toast.error("Something went wrong. Please try again.");
+      handleRedirectWithDelay("/");
+    } else {
+      AddToCartService(session, BookId, Quantity);
     }
   };
 
   const addToList = (BookId) => {
     if (session == null) {
       toast.error("Log in First and try again.");
-      return;
-    }
-    try {
-      let session_key = session[1];
-      axios
-        .post("http://127.0.0.1:8000/addtolist/", {
-          session_key: session_key,
-          BookObj: BookId,
-        })
-        .then((res) => {
-          if (res.data.message) {
-            toast.success(res.data.message);
-          }
-          if (res.data.error) {
-            toast.error(res.data.error);
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            let message = error.response.data;
-            if (message.error) toast.error(message.error);
-          } else if (error.request) {
-            console.error(
-              "No response received from the server:",
-              error.request
-            );
-            toast.error("No response received from the server");
-          } else {
-            console.error("Error during request setup:", error.message);
-            toast.error("An error occurred during the request");
-          }
-        });
-    } catch (error) {
-      console.error("Error during adding to cart:", error);
-      toast.error("Something went wrong. Please try again.");
+      handleRedirectWithDelay("/");
+    } else {
+      AddToListService(session,BookId);
     }
   };
 
@@ -183,15 +122,15 @@ const BookInfo = () => {
           </Grid>
         </Container>
         <ToastContainer
-          position="top-center"
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       </div>
     </div>
   );

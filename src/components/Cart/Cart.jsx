@@ -1,78 +1,47 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../NavBar/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import Items from "./Items";
-import { useLocation } from "react-router-dom";
-import axios from "axios";
+import DefaultLayoutHoc from "../../layout/Default.layout";
+import GetCartElementsService from "../Service/GetCartElementsService";
 
-const Cart = () => {
+const Cart = (props) => {
   const [booksData, setBooksData] = useState([]);
   const [cartData, setCartData] = useState("");
   let session = document.cookie.match(/session_key=([^;]*)/);
-  const isAuthenticate = useLocation().state.isAuthenticate;
   const [sum, setSum] = useState(0);
 
+
   useEffect(() => {
-    if (session == null) {
-      props.setAuthenticate(false);
-      navigate("/");
-    }
-    try {
-      let session_key = session[1];
-      axios
-        .post("http://127.0.0.1:8000/getcartelements/", {
-          session_key: session_key,
-        })
-        .then((res) => {
-          setBooksData(res.data.BookData);
-          setCartData(res.data.CartData);
-        });
-    } catch (error) {
-      console.error("Error during login:", error);
-      toast.error("Something went wrong. Please try again.");
-    }
-  }, []);
+    GetCartElementsService(session,setBooksData,setCartData);
+  }, [booksData]);
 
   useEffect(() => {
     let tempSum = 0;
-    booksData.forEach((book) => {
+    booksData && booksData.forEach((book) => {
       tempSum += book.BookObj.Price * book.ElementQuantity;
     });
     setSum(tempSum);
   }, [booksData]);
 
-  const handleReloadWithDelay = () => {
-    setTimeout(() => {
-      window.location.reload();
-    }, 2500);
-  };
+  
   const handleCheckOut = () => {
-    try {
-      let session_key = session[1];
-      axios.post("http://127.0.0.1:8000/placeorder/", {
-        session_key: session_key,
-      }).then((res)=>{
-        toast.success("Your order is placed !");
-        handleReloadWithDelay();
-      });
-    } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+    if (session == null || !isAuthenticate) {
+      props.setAuthenticate(false);
     }
-
+    PlaceOrderService(session);
   };
 
   return (
     <>
-      <Navbar isAuthenticate={isAuthenticate} />
       <div>
         {booksData && booksData.length == 0 ? (
           <>
-          <div className="flex justify-center items-center" style={{minHeight:"95vh"}}>
+          <div className="flex justify-center items-center" style={{minHeight:"85vh"}}>
             <h1 style={{fontSize:"30px", fontFamily:"Poppins"}}>Your Cart is Empty !</h1>
           </div>
           </>
         ) : (
-          <div className="h-full bg-gray-100 dark:text-white dark:bg-gray-900 pt-20" style={{minHeight:"95vh"}}>
+          <div className="h-full bg-gray-100 dark:text-white dark:bg-gray-900 pt-20">
             <h1 className="mb-10 text-center text-3xl font-bold">Cart Items</h1>
             <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
               <div className="rounded-lg md:w-2/3">
@@ -121,4 +90,4 @@ const Cart = () => {
     </>
   );
 };
-export default Cart;
+export default DefaultLayoutHoc(Cart);
