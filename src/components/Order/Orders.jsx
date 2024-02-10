@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../NavBar/Navbar";
 import OrderItems from "./OrderItems";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Order.css";
 import GetOrderElementsService from "../Service/GetOrderElementsService";
 import { ToastContainer, toast } from "react-toastify";
@@ -11,12 +11,14 @@ import DefaultLayoutHoc from "../../layout/Default.layout";
 const Order = (props) => {
   const [orders, setOrders] = useState([]);
   let session = document.cookie.match(/session_key=([^;]*)/);
+  const navigate=useNavigate();
 
   useEffect(() => {
-    if (session == null) {
+    if (!session) {
       props.setAuthenticate(false);
+      navigate('/');
     }
-    GetOrderElementsService(session,setOrders);
+    else GetOrderElementsService(session,setOrders);
   }, []);
   return (
     <>

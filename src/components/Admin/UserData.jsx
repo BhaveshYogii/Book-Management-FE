@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useEffect} from "react";
 import AdminLayoutHoc from "../../layout/Admin.layout";
-const UserData = () => {
+const UserData = (props) => {
+
   return (
     <>
       <h1 className="text-center my-6 text-4xl font-bold">Users</h1>

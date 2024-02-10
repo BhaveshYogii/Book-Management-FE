@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Select } from "flowbite-react";
 import AdminLayoutHoc from "../../layout/Admin.layout";
 
 const RequestTable = (props) => {
   const option = ["Accepted", "Pending", "Decline"];
-
   const [Status, setStatus] = useState(option[0]);
   const handleStatus = (event) => {
     setStatus(event.target.value);

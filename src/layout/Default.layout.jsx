@@ -16,6 +16,8 @@ const DefaultLayoutHoc =
       const func=async()=>{
         if (!session) {
           setAuthenticate(false);
+          console.log(Component);
+          // if(Component!="Home") navigate('/login');
         }
         await GetRoleService(session, setSeller, setAdmin, setAuthenticate);
       }

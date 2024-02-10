@@ -20,6 +20,7 @@ const Favourite = (props) => {
   useEffect(() => {
     if (session == null) {
       props.setAuthenticate(false);
+      navigate('/');
     }
     GetListElementsService(session,setBooksData,setListData);
   }, []);

@@ -3,16 +3,21 @@ import { ToastContainer, toast } from "react-toastify";
 import Items from "./Items";
 import DefaultLayoutHoc from "../../layout/Default.layout";
 import GetCartElementsService from "../Service/GetCartElementsService";
+import { useNavigate } from "react-router-dom";
 
 const Cart = (props) => {
   const [booksData, setBooksData] = useState([]);
   const [cartData, setCartData] = useState("");
   let session = document.cookie.match(/session_key=([^;]*)/);
   const [sum, setSum] = useState(0);
-
+  const navigate=useNavigate();
 
   useEffect(() => {
-    GetCartElementsService(session,setBooksData,setCartData);
+    if (!session) {
+      props.setAuthenticate(false);
+      navigate('/');
+    }
+    else GetCartElementsService(session,setBooksData,setCartData);
   }, [booksData]);
 
   useEffect(() => {

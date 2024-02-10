@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { FaRupeeSign } from "react-icons/fa";
 import AdminLayoutHoc from "../../layout/Admin.layout";
 const BookData = [
@@ -100,7 +100,8 @@ const BookData = [
   },
 ];
 
-const BooksData = () => {
+const BooksData = (props) => {
+
   return (
     <>
       <h1 className="text-center my-6 text-4xl font-bold">Books</h1>
