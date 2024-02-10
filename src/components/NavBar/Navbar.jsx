@@ -156,7 +156,7 @@ const Navbar = (props) => {
             {props.isAuthenticate ? (
               <span></span>
             ) : (
-              <button className="from-primary to-secondary px-4 py-2 rounded-full flex items-center gap-3 hover:scale-105 duration-300">
+              <button className="from-primary to-secondary px-4 py-2 rounded-full  hover:text-primary flex items-center gap-3 hover:scale-105 duration-300">
                 <a href="/login">Log In</a>
               </button>
             )}
