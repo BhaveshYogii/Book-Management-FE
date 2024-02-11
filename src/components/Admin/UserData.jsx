@@ -1,6 +1,20 @@
-import React,{useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import AdminLayoutHoc from "../../layout/Admin.layout";
+import { useNavigate } from "react-router-dom";
+import AdminGetUsers from "../Service/AdminGetUsers";
+
 const UserData = (props) => {
+  const [usersData, setUsersData] = useState([]);
+  let session = document.cookie.match(/session_key=([^;]*)/);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (session == null) {
+      navigate("/");
+    } else{
+     AdminGetUsers(session, setUsersData);
+    }
+  }, []);
+
 
   return (
     <>
@@ -19,26 +33,31 @@ const UserData = (props) => {
                 Email
               </th>
               <th scope="col" className="px-6 py-3">
-                Role
+                Phone Number
               </th>
               <th scope="col" className="px-6 py-3">
-                Action
+                Role
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">Amount</td>
-            </tr>
+            {usersData &&
+              usersData.map((data,idx) => (
+                <tr key={idx} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {data.UserId}
+                  </th>
+                  <td className="px-6 py-4">
+                    {data.FirstName + " " + data.LastName}
+                  </td>
+                  <td className="px-6 py-4">{data.Email}</td>
+                  <td className="px-6 py-4">{data.PhoneNo}</td>
+                  <td className="px-6 py-4">{data.Role}</td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

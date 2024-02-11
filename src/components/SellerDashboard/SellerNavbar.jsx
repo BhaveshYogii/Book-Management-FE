@@ -23,6 +23,7 @@ const SellerNavBar = (props) => {
   ];
 
 
+
   const handleUserDropdown = (data) => {
     if (data.name == "Logout") {
       let session_key = document.cookie.match(/session_key=([^;]*)/)[1];

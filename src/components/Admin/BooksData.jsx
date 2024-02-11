@@ -1,6 +1,9 @@
-import React,{useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { FaRupeeSign } from "react-icons/fa";
 import AdminLayoutHoc from "../../layout/Admin.layout";
+import { useNavigate } from "react-router-dom";
+
+import AdminGetBooks from "../Service/AdminGetBooks";
 const BookData = [
   {
     BookId: 1,
@@ -101,6 +104,16 @@ const BookData = [
 ];
 
 const BooksData = (props) => {
+  const [BookData, setBookData] = useState([]);
+  let session = document.cookie.match(/session_key=([^;]*)/);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (session == null) {
+      navigate("/");
+    } else {
+      AdminGetBooks(session, setBookData);
+    }
+  }, []);
 
   return (
     <>
@@ -131,11 +144,6 @@ const BooksData = (props) => {
                   {" "}
                   Price : <FaRupeeSign className="inline-block" />
                   {data.Price}
-                </div>
-                <div className="flex justify-center items-center">
-                  <button className="bg-gradient-to-r w-full from-primary to-secondary text-white px-4 py-2  rounded-sm flex items-center gap-3 hover:scale-105 duration-300">
-                    Add to Cart
-                  </button>
                 </div>
               </div>
             ))}

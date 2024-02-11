@@ -22,12 +22,7 @@ const UploadBooks = (props) => {
       window.location.reload();
     }, 2000);
   };
-  useEffect(() => {
-    if (!props.seller) {
-      props.setAuthenticate(false);
-      navigate('/');
-    }
-  }, [props.isAuthenticate]);
+
   let session = document.cookie.match(/session_key=([^;]*)/);
   const BookCategory = [
     "Fiction",

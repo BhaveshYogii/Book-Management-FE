@@ -19,7 +19,7 @@ const AdminLayoutHoc =
         navigate("/login");
       }
       const func = async () => {
-        await GetRoleService(session, setSeller, setAdmin, setAuthenticate);
+        await GetRoleService(session, setSeller,setAdmin, setAuthenticate);
       };
       func();
     }, [isAuthenticate]);
@@ -36,6 +36,7 @@ const AdminLayoutHoc =
               {...props}
               isAuthenticate={isAuthenticate}
               setAuthenticate={setAuthenticate}
+              admin={admin}
             />
  
       </div>

@@ -24,6 +24,7 @@ const DeleteFromCart = (session, moveToList, bookId) => {
         if (res.data.message) {
           toast.success(res.data.message);
           handleReloadWithDelay();
+          return;
         }
         if (res.data.error) {
           toast.error(res.data.error);

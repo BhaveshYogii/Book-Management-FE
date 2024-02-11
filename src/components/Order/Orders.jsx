@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../NavBar/Navbar";
 import OrderItems from "./OrderItems";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Order.css";
 import GetOrderElementsService from "../Service/GetOrderElementsService";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DefaultLayoutHoc from "../../layout/Default.layout";
 

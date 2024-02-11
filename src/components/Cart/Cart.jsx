@@ -4,6 +4,8 @@ import Items from "./Items";
 import DefaultLayoutHoc from "../../layout/Default.layout";
 import GetCartElementsService from "../Service/GetCartElementsService";
 import { useNavigate } from "react-router-dom";
+import Logo from "/assets/website/logo.png";
+import PlaceOrderService from "../Service/PlaceOrderService";
 
 const Cart = (props) => {
   const [booksData, setBooksData] = useState([]);
@@ -12,13 +14,33 @@ const Cart = (props) => {
   const [sum, setSum] = useState(0);
   const navigate=useNavigate();
 
+  const LaunchRazorPay=()=>{
+    let options={
+      key: "rzp_test_PYsgk49LtaQ4Nf",
+      amount: sum * 100,
+      currency:"INR",
+      name: "Book management",
+      description : "book purchase",
+      image : Logo,
+      handler :() =>{
+        handleCheckOut();
+      },
+      theme : {color:"#212121"},
+    };
+
+    let razorpay=window.Razorpay(options);
+    razorpay.open()
+  };
+
   useEffect(() => {
+
+    console.log(props.seller);
     if (!session) {
       props.setAuthenticate(false);
       navigate('/');
     }
     else GetCartElementsService(session,setBooksData,setCartData);
-  }, [booksData]);
+  }, []);
 
   useEffect(() => {
     let tempSum = 0;
@@ -30,10 +52,10 @@ const Cart = (props) => {
 
   
   const handleCheckOut = () => {
-    if (session == null || !isAuthenticate) {
+    if (session == null || !props.isAuthenticate) {
       props.setAuthenticate(false);
     }
-    PlaceOrderService(session);
+    else PlaceOrderService(session);
   };
 
   return (
@@ -73,7 +95,7 @@ const Cart = (props) => {
                 </div>
                 <button
                   className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
-                  onClick={handleCheckOut}
+                  onClick={LaunchRazorPay}
                 >
                   Check out
                 </button>

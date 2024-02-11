@@ -26,7 +26,7 @@ const SellerLayoutHoc =
     return (
       <div>
         <SellerNavBar isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate} seller={seller}/>
-        <Component {...props} isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate} />
+        <Component {...props} isAuthenticate={isAuthenticate} setAuthenticate={setAuthenticate} seller={seller}/>
       </div>
     );
   };
