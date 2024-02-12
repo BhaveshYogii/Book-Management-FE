@@ -1,7 +1,8 @@
 import React from "react";
 import { FaFilePdf } from "react-icons/fa";
 import GeneratePdfInvoiceService from "../Service/GeneratePdfInvoiceService";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const OrderItems = (props) => {
   let session = document.cookie.match(/session_key=([^;]*)/);
@@ -9,6 +10,7 @@ const OrderItems = (props) => {
     GeneratePdfInvoiceService(session,orderId);
   };
   return (
+    <>
     <div className="mt-10 card flex flex-col xl:flex-row jusitfy-center items-stretch  w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
       <div className="flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
         <div className="flex flex-col justify-start items-start bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full dark:text-black">
@@ -63,6 +65,17 @@ const OrderItems = (props) => {
         </div>
       </div>
     </div>
+    <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+    </>
   );
 };
 export default OrderItems;

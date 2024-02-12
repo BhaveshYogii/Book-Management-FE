@@ -10,7 +10,7 @@ import LogoutService from "../Service/LogoutService";
 
 const AdminNavBar = (props) => {
   let session = document.cookie.match(/session_key=([^;]*)/);
-
+  const navigate=useNavigate();
   const DropdownLinks = [
     {
       name: "Home",
@@ -33,6 +33,7 @@ const AdminNavBar = (props) => {
       link: "#",
     },
   ];
+  
 
   const handleUserDropdown = (data) => {
     if (!session) {

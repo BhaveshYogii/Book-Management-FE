@@ -11,13 +11,14 @@ const DefaultLayoutHoc =
     const [seller, setSeller] = useState(false);
     const [admin, setAdmin] = useState(false);
     let session = document.cookie.match(/session_key=([^;]*)/);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+
     useEffect(() => {
-      const func=async()=>{
+      const func=()=>{
         if (!session) {
           setAuthenticate(false);
         }
-        await GetRoleService(session, setSeller, setAdmin, setAuthenticate);
+        GetRoleService(session, setSeller, setAdmin, setAuthenticate);
       }
       func();
     }, []);

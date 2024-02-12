@@ -1,14 +1,31 @@
-import React, { useState } from "react";
-import { Select } from "flowbite-react";
+import React, { useState, useEffect } from "react";
 import AdminLayoutHoc from "../../layout/Admin.layout";
+import { useNavigate } from "react-router-dom";
+import AdminGetRequests from "../Service/AdminGetRequests";
+import StatusRow from "./StatusRow";
+import SellerRegisterService from "../Service/SellerRegisterService";
+import { ToastContainer } from "react-toastify";
 
 const RequestTable = (props) => {
-  const option = ["Accepted", "Pending", "Decline"];
+  const [RequestData, setRequestData] = useState([]);
+  let session = document.cookie.match(/session_key=([^;]*)/);
+  const navigate = useNavigate();
+  
+  
+  useEffect(() => {
+    if (!session) {
+      navigate("/");
+    } else {
+      AdminGetRequests(session, setRequestData);
+    }
+  }, []);
 
-  const [Status, setStatus] = useState(option[0]);
-  const handleStatus = (event) => {
-    setStatus(event.target.value);
+  const handleSellerRegister = (sellerId) => {
+    if (session == null) {
+      navigate("/");
+    } else SellerRegisterService(session, sellerId);
   };
+
   return (
     <>
       <h1 className="text-center my-6 text-4xl font-bold">Seller Requests</h1>
@@ -37,39 +54,57 @@ const RequestTable = (props) => {
             </tr>
           </thead>
           <tbody>
-            <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-                Apple MacBook Pro 17"
-              </th>
-              <td className="px-6 py-4">Silver</td>
-              <td className="px-6 py-4">Laptop</td>
-              <td className="px-6 py-4">$2999</td>
-              <td className="px-6 py-4">
-                <Select
-                  id="status"
-                  name="status"
-                  className="w-full rounded"
-                  value={Status}
-                  onChange={handleStatus}
+            {RequestData &&
+              RequestData.map((data, idx) => (
+                <tr
+                  key={idx}
+                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
                 >
-                  {option.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </Select>
-              </td>
-              <td className="px-6 py-4">
-                <button className="flex justify-center sm:text-md bg-gradient-to-r  from-primary to-secondary text-white px-5 py-1.5 rounded-sm items-center gap-3 hover:scale-105 duration-300">
-                  <span>Save</span>
-                </button>
-              </td>
-            </tr>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {data.RequestId}
+                  </th>
+                  <td className="px-6 py-4">
+                    {data.SellerObj.UserObj.FirstName +
+                      " " +
+                      data.SellerObj.UserObj.LastName}
+                  </td>
+                  <td className="px-6 py-4">{data.SellerObj.Company}</td>
+                  <td className="px-6 py-4">
+                    {data.SellerObj.CompanyLocation}
+                  </td>
+                  <td className="px-6 py-4">
+                    <StatusRow
+                      status={data.Status}
+                      requestId={data.RequestId}
+                    />
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      className="flex justify-center sm:text-md bg-gradient-to-r  from-primary to-secondary text-white px-5 py-1.5 rounded-sm items-center gap-3 hover:scale-105 duration-300"
+                      onClick={(e) =>
+                        handleSellerRegister(data.SellerObj.SellerId)
+                      }
+                    >
+                      <span>Save</span>
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
     </>
   );

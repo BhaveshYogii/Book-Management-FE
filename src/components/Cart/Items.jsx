@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaRupeeSign } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import { FaHeart } from "react-icons/fa6";
+
 import DeleteFromCart from "../Service/DeleteFromCart";
 import UpdateCartService from "../Service/UpdateCartService";
 const Items = (props) => {
@@ -52,8 +53,8 @@ const Items = (props) => {
               &times;
             </span>
             <div className="flex justify-center items-center gap-3">
-              <div className="text-xl">Move to Wishlist</div>
-              <FaHeart />
+              <div className="text-xl dark:text-black">Move to Wishlist</div>
+              <FaHeart className="dark:text-black"/>
             </div>
             <div className="flex flex justify-center items-cente gap-3 mt-4">
               <button

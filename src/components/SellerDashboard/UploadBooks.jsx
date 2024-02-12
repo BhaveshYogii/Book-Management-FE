@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Button,
   Checkbox,
@@ -13,8 +13,10 @@ import SellerNavBar from "./SellerNavbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SellerLayoutHoc from "../../layout/Seller.layout";
+import { useNavigate } from "react-router-dom";
 
-const UploadBooks = () => {
+const UploadBooks = (props) => {
+  const navigate=useNavigate();
   const handleReloadWithDelay = () => {
     setTimeout(() => {
       window.location.reload();

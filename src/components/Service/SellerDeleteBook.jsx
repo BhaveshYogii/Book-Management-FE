@@ -2,22 +2,20 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const DeleteFromCart = (session, moveToList, bookId) => {
+const SellerDeleteBook = (session, book) => {
 
   const handleReloadWithDelay = () => {
     setTimeout(() => {
       window.location.reload();
     }, 2000);
   };
-
   try {
     let session_key = session[1];
     axios
-      .delete("http://127.0.0.1:8000/deletefromcart/", {
+      .delete("http://127.0.0.1:8000/sellerdeletebook/", {
         data: {
           session_key: session_key,
-          MoveToList: moveToList,
-          BookObj: bookId,
+          bookId: book.BookId,
         },
       })
       .then((res) => {
@@ -41,8 +39,8 @@ const DeleteFromCart = (session, moveToList, bookId) => {
         }
       });
   } catch (error) {
-    console.error("Error during adding to cart:", error);
+    console.error("Error:", error);
   }
 };
 
-export default DeleteFromCart;
+export default SellerDeleteBook;

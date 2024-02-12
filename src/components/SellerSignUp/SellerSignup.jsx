@@ -10,6 +10,7 @@ import DefaultLayoutHoc from "../../layout/Default.Layout";
 
 const SellerSignup = (props) => {
   const isAuthenticate = props.isAuthenticate;
+  const navigate=useNavigate();
   let session = document.cookie.match(/session_key=([^;]*)/);
   const [requestStatus, setRequestStatus] = useState("NULL");
   const [seller, setSeller] = useState({
@@ -26,7 +27,11 @@ const SellerSignup = (props) => {
   };
 
   useEffect(() => {
-    if(session) GetRequestStatusService(session,setRequestStatus);
+    if (!session) {
+      props.setAuthenticate(false);
+      navigate('/');
+    }
+    else GetRequestStatusService(session,setRequestStatus);
   }, []);
 
   // useEffect(() => {
