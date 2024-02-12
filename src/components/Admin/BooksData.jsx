@@ -129,7 +129,7 @@ const BooksData = (props) => {
                 <img
                   src={data.Image}
                   alt=""
-                  className="h-[200px] object-cover rounded-md cursor-pointer "
+                  className="h-[200px] object-cover rounded-md  hover:scale-105 transition-transform duration-300"
                   onClick={() => {
                     routeChange(data.BookId, data);
                   }}

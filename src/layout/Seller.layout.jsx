@@ -46,6 +46,7 @@ const SellerLayoutHoc =
           >
             <h1 style={{ fontSize: "1.5rem" }}>Sorry !</h1>
             <p>You are not authorized to access this page.</p>
+            <a href="/" className="cursor-pointer text-blue-500">Go back to home</a>
           </div>
         )}
       </div>

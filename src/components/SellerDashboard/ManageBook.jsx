@@ -42,7 +42,7 @@ const ManageBook = (props) => {
     navigate(`/my_book/${idx}`, {
       state: {
         book: book,
-        isAuthenticate: isAuthenticate,
+        isAuthenticate: props.isAuthenticate,
       },
     });
   };
@@ -70,7 +70,7 @@ const ManageBook = (props) => {
                 <img
                   src={data.Image}
                   alt=""
-                  className="h-[200px] object-cover rounded-md cursor-pointer "
+                  className="h-[200px] object-cover rounded-md cursor-pointer hover:scale-105 transition-transform duration-300"
                   onClick={() => {
                     routeChange(data.BookId, data);
                   }}

@@ -28,9 +28,11 @@ const Footer = () => {
     {/* company details */}
     <div className='py-8 px-4'>
             <h1 className='sm:text-3xl text-xl font-bold sm:text-left text-justify mb-3'>Book Store</h1>
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aspernatur sit excepturi iste amet eos vitae cupiditate velit, corporis accusamus repellendus labore consequuntur alias, aliquid fugit, corrupti veniam rerum laborum id.
-            </p>
+            <p className='font-light'>
+            Welcome to Book Store, your digital haven for literary exploration. With a passion for books and a commitment to connecting readers with their next great read, we strive to offer a curated selection of diverse titles to suit every taste and interest. Whether you're seeking bestselling novels, niche genres, or timeless classics, we're here to help you discover, explore, and immerse yourself in the captivating world of literature. Happy reading!
+
+
+             </p>
             <br />
             {/* social links */}
             <div className='flex items-center gap-3'>

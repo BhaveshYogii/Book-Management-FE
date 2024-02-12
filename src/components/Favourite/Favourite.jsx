@@ -74,7 +74,7 @@ const Favourite = (props) => {
                   <img
                     src={data.BookObj.Image}
                     alt=""
-                    className="h-[200px] object-cover rounded-md cursor-pointer "
+                    className="h-[200px] object-cover rounded-md cursor-pointer hover:scale-105 transition-transform duration-300 "
                     onClick={() => {
                       routeChange(data.BookObj.BookId, data.BookObj);
                     }}

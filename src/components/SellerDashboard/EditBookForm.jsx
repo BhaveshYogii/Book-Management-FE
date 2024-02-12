@@ -16,7 +16,7 @@ const EditBookForm = (props) => {
     const [genre, setGenre] = useState(book.Genre || '');
     const [price, setPrice] = useState(book.Price || '');
     const [publishYear, setPublishYear] = useState(book.PublishYear || '');
-    const [Language, SetLanguage] = useState(book.Language || '');
+    const [Language, setLanguage] = useState(book.Language || '');
     const [availQuantity, setAvailQuantity] = useState(book.AvailQuantity || '');
     const [description, setDescription] = useState(book.Description || '');
     const BookCategory = [
@@ -50,10 +50,10 @@ const EditBookForm = (props) => {
         "Russian",
         "Portuguese"
     ];
-    const [language, setLanguage] = useState(LanguageOptions[0]);
-    const handleLanguageChange = (event) => {
-        setLanguage(event.target.value);
-    };
+    // const [language, setLanguage] = useState(LanguageOptions[0]);
+    // const handleLanguageChange = (event) => {
+    //     setLanguage(event.target.value);
+    // };
    
     const handlesaveclick = (event) => {
         event.preventDefault();
@@ -113,7 +113,9 @@ const EditBookForm = (props) => {
             <div className="mb-2 block">
                 <Label htmlFor="Genre" value="Book Genre" />
                 </div>
-                <Select id='Genre' name='Genre' className='w-full rounded' value={genre} onChange={handleChangeCategory}>
+                <Select id='Genre' name='Genre' className='w-full rounded' value={genre} onChange={(event)=>{
+                    setGenre(event.target.value)
+                }}>
                     {
                         BookCategory.map((option)=> <option key={option} value={option}>{option}</option>)
                     }
@@ -142,7 +144,9 @@ const EditBookForm = (props) => {
                 <div className="mb-2 block">
                 <Label htmlFor="Language" value="Book Language" />
                 </div>
-                <Select id='Language' name='Language' className='w-full rounded' value={Language} onChange={handleLanguageChange}>
+                <Select id='Language' name='Language' className='w-full rounded' value={Language} onChange={(event)=>{
+                    setLanguage(event.target.value);
+                }}>
                 {LanguageOptions.map((option) => (
                     <option key={option} value={option}>{option}</option>
                 ))}

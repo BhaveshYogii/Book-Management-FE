@@ -119,10 +119,13 @@ const SignUp = (props) => {
         })
         .catch((error) => {
           if (error.response) {
-            let message = error.response.data.message;
-            if (message.PhoneNo)
+            if(error.response.data.error.Email)
+              toast.error(error.response.data.error.Email[0]);
+              if(error.response.data.error.PhoneNo)
+              toast.error(error.response.data.error.PhoneNo[0]);
+            if (error.response.data.message.PhoneNo)
               toast.error(error.response.data.message.PhoneNo[0]);
-            if (message.Email)
+            if (error.response.data.message.Email)
               toast.error(error.response.data.message.Email[0]);
           } else if (error.request) {
             console.error(

@@ -57,7 +57,7 @@ const BestBook = (props) => {
           </p> */}
         </div>
         {/* Card  */}
-        <div>
+        <div className="mb-10">
           <div className=" grid grid-cols-1 sm:grid-cols-3 place-items-start place-justify-center gap-10 gap-y-16 lg:grid-cols-4">
             {props.BooksData &&
               props.BooksData.map((data) => (
@@ -96,6 +96,11 @@ const BestBook = (props) => {
                 </div>
               ))}
           </div>
+        </div>
+        {/* <hr /> */}
+        <div className="mt-28">
+        <h1 className="text-6xl text-center font-semibold ">Quote of the Day</h1>
+        <p className="text-center mt-3 font-extralight mt-4">"The more that you read, the more things you will know. <br/>The more that you learn, the more places you'll go."</p>
         </div>
       </div>
       <ToastContainer
