@@ -106,7 +106,7 @@ const SignUp = (props) => {
     if (Object.keys(newErrors).length === 0) {
       signup(formData)
         .then(() => {
-          toast.success("Form submitted successfully!");
+          toast.success("User registered successfully!");
           handleRedirectWithDelay("/login");
           setFormData({
             FirstName: "",

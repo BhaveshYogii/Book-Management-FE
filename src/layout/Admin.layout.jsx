@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import AdminNavbar from "../components/Admin/AdminNavBar";
 import { useNavigate } from "react-router-dom";
 import GetRoleService from "../components/Service/GetRoleService";
-import Login from "../components/Login/Login";
 
 const AdminLayoutHoc =
   (Component) =>
@@ -19,14 +18,15 @@ const AdminLayoutHoc =
         navigate("/login");
       }
       const func = async () => {
-        await GetRoleService(session, setSeller,setAdmin, setAuthenticate);
+        await GetRoleService(session, setSeller, setAdmin, setAuthenticate);
       };
       func();
     }, [isAuthenticate]);
 
     return (
       <div>
-        
+        {admin && (
+          <>
             <AdminNavbar
               isAuthenticate={isAuthenticate}
               setAuthenticate={setAuthenticate}
@@ -38,7 +38,14 @@ const AdminLayoutHoc =
               setAuthenticate={setAuthenticate}
               admin={admin}
             />
- 
+          </>
+        )}
+        {!admin && (
+          <div className="flex flex-col justify-center items-center" style={{minHeight:"100vh"}}>
+            <h1 style={{fontSize:"1.5rem"}}>Sorry !</h1>
+            <p>You are not authorized to access this page.</p>
+            
+            </div>)}
       </div>
     );
   };

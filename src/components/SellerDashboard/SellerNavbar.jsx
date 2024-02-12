@@ -11,18 +11,19 @@ const SellerNavBar = (props) => {
   const navigate = useNavigate();
 
   const DropdownLinks = [
-    
     {
       name: "Upload Book",
       link: "/seller/dashboard/upload-book",
+    },
+    {
+      name: "Manage Book",
+      link: "/seller/manage-book",
     },
     {
       name: "Logout",
       link: "#",
     },
   ];
-
-
 
   const handleUserDropdown = (data) => {
     if (data.name == "Logout") {
@@ -63,60 +64,65 @@ const SellerNavBar = (props) => {
               <Darkmode />
             </div>
             <ul className="items-center gap-4 hidden sm:flex">
-            <li>
+              <li>
                 <Link
                   to={"/"}
                   className="inline-block py-4 px-4 hover:text-primary duration-200"
-                  state={{
-                    isAuthenticate: props.isAuthenticate,
-                  }}
                 >
                   Home
                 </Link>
               </li>
-                <>
-                  <li>
-                    <Link
-                      to={"/seller/dashboard/upload-book"}
-                      className="inline-block py-4 px-4 hover:text-primary duration-200"
-                    >
-                      <div className="flex justify-center items-center gap-1">
-                        Upload Book
-                      </div>
-                    </Link>
-                  </li>
-                </>
+              <>
+                <li>
+                  <Link
+                    to={"/seller/dashboard/upload-book"}
+                    className="inline-block py-4 px-4 hover:text-primary duration-200"
+                  >
+                    <div className="flex justify-center items-center gap-1">
+                      Upload Book
+                    </div>
+                  </Link>
+                </li>
+                <Link
+                  className="inline-block py-4 px-4 hover:text-primary duration-200"
+                  to={"/seller/manage-book"}
+                >
+                  <div className="flex justify-center items-center gap-1">
+                    Manage Books
+                  </div>
+                </Link>
+              </>
               {/* ) : (
                 <span></span>
               )} */}
               {/* dropdown section  */}
             </ul>
-           
+
             {/* {props.isAuthenticate ? ( */}
-              <div className="group relative cursor-pointer ml-3">
-                <span>
-                  <FaRegCircleUser className="text-3xl transition duration-300" />
-                </span>
-                {/* {dropdown links sections} */}
-                <div className="absolute -right-9 z-[10] hidden group-hover:block text-black bg-white p-2 shadow-md w-[150px]">
-                  <ul>
-                    {DropdownLinks.map((data, index) => (
-                      <li key={index}>
-                        <Link
-                          to={data.link}
-                          className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
-                          onClick={(e) => handleUserDropdown(data)}
-                          state={{
-                            isAuthenticate: props.isAuthenticate,
-                          }}
-                        >
-                          {data.name}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <div className="group relative cursor-pointer ml-3">
+              <span>
+                <FaRegCircleUser className="text-3xl transition duration-300" />
+              </span>
+              {/* {dropdown links sections} */}
+              <div className="absolute -right-9 z-[10] hidden group-hover:block text-black bg-white p-2 shadow-md w-[150px]">
+                <ul>
+                  {DropdownLinks.map((data, index) => (
+                    <li key={index}>
+                      <Link
+                        to={data.link}
+                        className="inline-block w-full rounded-md p-2 hover:bg-primary/20"
+                        onClick={(e) => handleUserDropdown(data)}
+                        state={{
+                          isAuthenticate: props.isAuthenticate,
+                        }}
+                      >
+                        {data.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
+            </div>
             {/* ) : (
               <div></div>
             )} */}

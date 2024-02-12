@@ -29,7 +29,7 @@ const Cart = (props) => {
     };
 
     let razorpay=window.Razorpay(options);
-    razorpay.open()
+    razorpay.open();
   };
 
   useEffect(() => {

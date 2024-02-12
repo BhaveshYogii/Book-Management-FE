@@ -62,8 +62,8 @@ const Footer = () => {
         </h1>
         <ul className='flex flex-col gap-3'>
             {
-                FooterLink.map((data)=>(
-                    <li className='cursor-pointer hover:translate-x-1 duration-300 hover:text-primary space-x-1 text-gray-500'>
+                FooterLink.map((data,idx)=>(
+                    <li key={idx} className='cursor-pointer hover:translate-x-1 duration-300 hover:text-primary space-x-1 text-gray-500'>
                         <IoArrowRedoOutline className='inline-block' />
                         <span>{' '}{data.title}</span>
                     </li>
@@ -79,8 +79,8 @@ const Footer = () => {
         </h1>
         <ul className='flex flex-col gap-3'>
             {
-                FooterLink.map((data)=>(
-                    <li className='cursor-pointer hover:translate-x-1 duration-300 hover:text-primary space-x-1 text-gray-500'>
+                FooterLink.map((data,idx)=>(
+                    <li key={idx} className='cursor-pointer hover:translate-x-1 duration-300 hover:text-primary space-x-1 text-gray-500'>
                         <IoArrowRedoOutline className='inline-block' />
                         <span>{' '}{data.title}</span>
                     </li>
@@ -96,8 +96,8 @@ const Footer = () => {
         </h1>
         <ul className='flex flex-col gap-3'>
             {
-                FooterLink.map((data)=>(
-                    <li className='cursor-pointer hover:translate-x-1 duration-300 hover:text-primary space-x-1 text-gray-500'>
+                FooterLink.map((data,idx)=>(
+                    <li key={idx} className='cursor-pointer hover:translate-x-1 duration-300 hover:text-primary space-x-1 text-gray-500'>
                         <IoArrowRedoOutline className='inline-block' />
                         <span>{' '}{data.title}</span>
                     </li>

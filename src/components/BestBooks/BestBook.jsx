@@ -26,10 +26,9 @@ const BestBook = (props) => {
       toast.error("Log in First and try again.");
       navigate("/");
     } else {
-      AddToCartService(session,BookId,Quantity);
+      AddToCartService(session, BookId, Quantity);
     }
   };
-
 
   const routeChange = (idx, book) => {
     // console.log('Navigating to:', `/my_book/${idx}`,book);
@@ -49,13 +48,13 @@ const BestBook = (props) => {
           {props.isSearch ? (
             <h1 className="text-3xl font-bold">Your Search results</h1>
           ) : (
-            <h1 className="text-3xl font-bold">{props.title}</h1>
+            <h1 className="text-4xl font-bold">{props.title}</h1>
           )}
 
-          <p className="text-xs text-gray-400">
-            Lorem ipsum dolor sit amet consectetur adip Eos, fugiat numquam
-            aliquam molesti sdam nemo a sed odio quasi magni?{" "}
-          </p>
+          {/* <p className="text-xs text-gray-400">
+            "The more that you read, the more things you will know. The more
+            that you learn, the more places you'll go."{" "}
+          </p> */}
         </div>
         {/* Card  */}
         <div>
@@ -63,13 +62,14 @@ const BestBook = (props) => {
             {props.BooksData &&
               props.BooksData.map((data) => (
                 <div
+                  data-aos="zoom-in"
                   className="space-y-3 fav-icon-outer card p-5 flex justify-center items-center flex-col w-full"
                   key={data.BookId}
                 >
                   <img
                     src={data.Image}
                     alt=""
-                    className="h-[200px] object-cover rounded-md cursor-pointer "
+                    className="h-[200px] object-cover rounded-md cursor-pointer hover:scale-105 transition-transform duration-300"
                     onClick={() => {
                       routeChange(data.BookId, data);
                     }}
