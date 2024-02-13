@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useEffect } from "react";
 import { FaRupeeSign } from "react-icons/fa";
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { FaRegHeart } from "react-icons/fa";
-// import required modules
-import { Pagination } from "swiper/modules";
-import BookCard from "../BookCards/BookCard";
-import axios from "axios";
 import "./BestBook.css";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { IoMdHeart } from "react-icons/io";
-import { IoIosHeartEmpty } from "react-icons/io";
+import AddToCartService from "../Service/AddToCartService";
+import GetBooksService from "../Service/GetBooksService";
 
 const BestBook = (props) => {
   const navigate = useNavigate();
@@ -27,20 +17,7 @@ const BestBook = (props) => {
       props.setAuthenticate(false);
       navigate("/");
     }
-    try {
-      axios
-        .post("http://127.0.0.1:8000/getbooks/", {
-          Key: props.keyfield,
-          Order: props.order,
-          Limit: props.limit,
-        })
-        .then((res) => {
-          props.setBooksData(res.data.list);
-        });
-    } catch (error) {
-      // console.error("Error during login:", error);
-      toast.error("Something went wrong. Please try again.");
-    }
+    GetBooksService(props);
   }, [props.title]);
 
   const addToCart = (BookId, Quantity) => {
@@ -49,84 +26,7 @@ const BestBook = (props) => {
       toast.error("Log in First and try again.");
       navigate("/");
     } else {
-      try {
-        let session_key = session[1];
-        axios
-          .post("http://127.0.0.1:8000/addtocart/", {
-            session_key: session_key,
-            BookObj: BookId,
-            TotalQuantity: Quantity,
-          })
-          .then((res) => {
-            if (res.data.message) {
-              toast.success(res.data.message);
-            }
-            if (res.data.error) {
-              toast.error(res.data.error);
-            }
-          })
-          .catch((error) => {
-            if (error.response) {
-              let message = error.response.data;
-              if (message.error) toast.error(message.error);
-            } else if (error.request) {
-              console.error(
-                "No response received from the server:",
-                error.request
-              );
-              toast.error("No response received from the server");
-            } else {
-              console.error("Error during request setup:", error.message);
-              toast.error("An error occurred during the request");
-            }
-          });
-      } catch (error) {
-        console.error("Error during adding to cart:", error);
-        toast.error("Something went wrong. Please try again.");
-      }
-    }
-  };
-
-  const addToList = (BookId) => {
-    if (session == null) {
-      props.setAuthenticate(false);
-      toast.error("Log in First and try again.");
-      navigate("/");
-    } else {
-      let session_key = session[1];
-      try {
-        axios
-          .post("http://127.0.0.1:8000/addtolist/", {
-            session_key: session_key,
-            BookObj: BookId,
-          })
-          .then((res) => {
-            if (res.data.message) {
-              toast.success(res.data.message);
-            }
-            if (res.data.error) {
-              toast.error(res.data.error);
-            }
-          })
-          .catch((error) => {
-            if (error.response) {
-              let message = error.response.data;
-              if (message.error) toast.error(message.error);
-            } else if (error.request) {
-              console.error(
-                "No response received from the server:",
-                error.request
-              );
-              toast.error("No response received from the server");
-            } else {
-              console.error("Error during request setup:", error.message);
-              toast.error("An error occurred during the request");
-            }
-          });
-      } catch (error) {
-        console.error("Error during adding to cart:", error);
-        toast.error("Something went wrong. Please try again.");
-      }
+      AddToCartService(session, BookId, Quantity);
     }
   };
 
@@ -145,33 +45,31 @@ const BestBook = (props) => {
       <div className="container placeholder-gray-100">
         {/* header */}
         <div className="text-center mb-20 max-w-[400px] mx-auto">
-          {/* <p className="text-sm bg-clip-text text-transparent bg-gradient-to-r from bg-primary to-secondary">
-            Best Books
-          </p> */}
           {props.isSearch ? (
             <h1 className="text-3xl font-bold">Your Search results</h1>
           ) : (
-            <h1 className="text-3xl font-bold">{props.title}</h1>
+            <h1 className="text-4xl font-bold">{props.title}</h1>
           )}
 
-          <p className="text-xs text-gray-400">
-            Lorem ipsum dolor sit amet consectetur adip Eos, fugiat numquam
-            aliquam molesti sdam nemo a sed odio quasi magni?{" "}
-          </p>
+          {/* <p className="text-xs text-gray-400">
+            "The more that you read, the more things you will know. The more
+            that you learn, the more places you'll go."{" "}
+          </p> */}
         </div>
         {/* Card  */}
-        <div>
+        <div className="mb-10">
           <div className=" grid grid-cols-1 sm:grid-cols-3 place-items-start place-justify-center gap-10 gap-y-16 lg:grid-cols-4">
             {props.BooksData &&
               props.BooksData.map((data) => (
                 <div
+                  data-aos="zoom-in"
                   className="space-y-3 fav-icon-outer card p-5 flex justify-center items-center flex-col w-full"
                   key={data.BookId}
                 >
                   <img
                     src={data.Image}
                     alt=""
-                    className="h-[200px] object-cover rounded-md cursor-pointer "
+                    className="h-[200px] object-cover rounded-md cursor-pointer hover:scale-105 transition-transform duration-300"
                     onClick={() => {
                       routeChange(data.BookId, data);
                     }}
@@ -199,55 +97,11 @@ const BestBook = (props) => {
               ))}
           </div>
         </div>
-        {/* <div className="my-16 px-4 lg:px-10">
-          <Swiper
-            slidesPerView={1}
-            spaceBetween={10}
-            pagination={{
-              clickable: true,
-            }}
-            breakpoints={{
-              640: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 4,
-                spaceBetween: 40,
-              },
-              1024: {
-                slidesPerView: 5,
-                spaceBetween: 50,
-              },
-            }}
-            modules={[Pagination]}
-            className="mySwiper w-full h-full"
-          >
-            {BooksData.map((book) => (
-              <SwiperSlide key={book.BookId}>
-                <Link to="/">
-                  <div>
-                    <img
-                      src={book.Image}
-                      alt=""
-                      className="h-[260px] w-[240px] object-cover rounded-md"
-                    />
-                  </div>
-                  <div>
-                    <div>
-                      <h3>{book.Title}</h3>
-                      <p>{book.Author}</p>
-                    </div>
-                    <div>
-                      <FaRupeeSign className="inline-block" />
-                      {book.Price}
-                    </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div> */}
+        {/* <hr /> */}
+        <div className="mt-28">
+        <h1 className="text-6xl text-center font-semibold ">Quote of the Day</h1>
+        <p className="text-center mt-3 font-extralight mt-4">"The more that you read, the more things you will know. <br/>The more that you learn, the more places you'll go."</p>
+        </div>
       </div>
       <ToastContainer
         position="top-center"

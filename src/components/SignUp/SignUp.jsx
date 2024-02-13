@@ -4,10 +4,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signup } from "../Service/SignupService";
 import { useNavigate } from "react-router-dom";
+import DefaultLayoutHoc from "../../layout/Default.Layout";
 
-const SignUp = () => {
+const SignUp = (props) => {
   const navigate = useNavigate();
-  // const history = useHistory();
   const handleRedirectWithDelay = (link) => {
     setTimeout(() => {
       navigate(link);
@@ -94,10 +94,10 @@ const SignUp = () => {
       newErrors = {
         ...newErrors,
         Password:
-          "Password must contain at least 1 capital letter, 1 special character, and 1 number. Minimum length is 8 characters.",
+          "Password must contain at least 1 capital letter, 1 special character, and 1 number. Minimum length is 5 characters.",
       };
       toast.error(
-        "Password must contain at least 1 capital letter, 1 special character, and 1 number. Minimum length is 8 characters."
+        "Password must contain at least 1 capital letter, 1 special character, and 1 number. Minimum length is 5 characters."
       );
     }
 
@@ -106,7 +106,7 @@ const SignUp = () => {
     if (Object.keys(newErrors).length === 0) {
       signup(formData)
         .then(() => {
-          toast.success("Form submitted successfully!");
+          toast.success("User registered successfully!");
           handleRedirectWithDelay("/login");
           setFormData({
             FirstName: "",
@@ -119,10 +119,13 @@ const SignUp = () => {
         })
         .catch((error) => {
           if (error.response) {
-            let message = error.response.data.message;
-            if (message.PhoneNo)
+            if(error.response.data.error.Email)
+              toast.error(error.response.data.error.Email[0]);
+              if(error.response.data.error.PhoneNo)
+              toast.error(error.response.data.error.PhoneNo[0]);
+            if (error.response.data.message.PhoneNo)
               toast.error(error.response.data.message.PhoneNo[0]);
-            if (message.Email)
+            if (error.response.data.message.Email)
               toast.error(error.response.data.message.Email[0]);
           } else if (error.request) {
             console.error(
@@ -140,7 +143,6 @@ const SignUp = () => {
 
   return (
     <>
-      <Navbar isAuthenticate={false} />
       <div
         className="min-h-screen py-6 flex flex-col justify-center sm:py-10  bg-white dark:bg-gray-900 dark:text-white duration-200"
         style={{ paddingTop: "0px" }}
@@ -301,4 +303,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default DefaultLayoutHoc(SignUp);

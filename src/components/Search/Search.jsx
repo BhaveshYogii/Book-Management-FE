@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BestBook from "../BestBooks/BestBook";
+import SearchBook from "../Service/SearchBook";
 const Search = (props) => {
 
   const [isOpen, setIsOpen] = useState(false);
@@ -20,20 +21,7 @@ const Search = (props) => {
     const searchTerm = event.target.elements.search.value;
     const formData = new FormData();
     formData.append("searchTerm", searchTerm);
-    try {
-      const response = await fetch("http://127.0.0.1:8000/searchbook/", {
-        method: "POST",
-        body: formData,
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setBooksData(data);
-      } else {
-        console.error("Error:");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    SearchBook(formData,setBooksData);
   };
 
   const renderBooks = (title, key, order,limit) => {

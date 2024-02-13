@@ -1,5 +1,6 @@
 import axios from "axios";
-const sellerf = async (userData) => {
+
+const SellerRequest = async (userData) => {
     let session = document.cookie.match(/session_key=([^;]*)/);
     if (session == null) {
       toast.error("Log in First and try again.");
@@ -14,7 +15,7 @@ const sellerf = async (userData) => {
     });
       return response.data;
     } catch (error) {
-      throw error;
+      console.log(error);
     }
   };
-  export {sellerf};
+  export default SellerRequest;
