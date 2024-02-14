@@ -13,7 +13,7 @@ const DeleteFromCart = (session, moveToList, bookId) => {
   try {
     let session_key = session[1];
     axios
-      .delete("http://127.0.0.1:8000/deletefromcart/", {
+      .delete("http://52.66.67.27:8000/deletefromcart/", {
         data: {
           session_key: session_key,
           MoveToList: moveToList,

@@ -12,7 +12,7 @@ const SellerEditService = (session, book) => {
   try {
     let session_key = session[1];
     axios
-      .post("http://127.0.0.1:8000/sellerupdatebook/", {
+      .post("http://52.66.67.27:8000/sellerupdatebook/", {
         session_key: session_key,
         BookId: book.BookId,
         Title: book.Title,

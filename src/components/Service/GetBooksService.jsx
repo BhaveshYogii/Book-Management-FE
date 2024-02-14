@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 const GetBooksService = (props) => {
   try {
     axios
-      .post("http://127.0.0.1:8000/getbooks/", {
+      .post("http://52.66.67.27:8000/getbooks/", {
         Key: props.keyfield,
         Order: props.order,
         Limit: props.limit,

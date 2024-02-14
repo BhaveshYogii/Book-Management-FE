@@ -6,7 +6,7 @@ const GeneratePdfInvoiceService = (session,orderId) => {
     try {
         let session_key = session[1];
         axios
-          .post("http://127.0.0.1:8000/generate_pdf_invoice/", {
+          .post("http://52.66.67.27:8000/generate_pdf_invoice/", {
             session_key: session_key,
             orderId: orderId,
           }, {

@@ -6,7 +6,7 @@ const AddToListService = (session,BookId) => {
   try {
     let session_key = session[1];
     axios
-      .post("http://127.0.0.1:8000/addtolist/", {
+      .post("http://52.66.67.27:8000/addtolist/", {
         session_key: session_key,
         BookObj: BookId,
       })

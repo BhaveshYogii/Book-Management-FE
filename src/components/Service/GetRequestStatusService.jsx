@@ -6,7 +6,7 @@ const GetRequestStatusService = (session, setRequestStatus) => {
   try {
     let session_key = session[1];
     axios
-      .post("http://127.0.0.1:8000/getrequeststatus/", {
+      .post("http://52.66.67.27:8000/getrequeststatus/", {
         session_key: session_key,
       })
       .then((res) => {

@@ -5,7 +5,7 @@ const GetRoleService = async (session,setSeller,setAdmin,setAuthenticate) => {
   try {
     let session_key = session[1];
     await axios
-      .post("http://127.0.0.1:8000/getrole/", {
+      .post("http://52.66.67.27:8000/getrole/", {
         session_key: session_key,
       })
       .then((res) => {
