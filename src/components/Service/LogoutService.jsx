@@ -8,7 +8,7 @@ const LogoutService = async (session, props) => {
   let temp = session[1];
   try {
     await axios
-      .post("http://127.0.0.1:8000/logout/", {
+      .post("http://52.66.67.27:8000/logout/", {
         session_key: session[1],
       })
       .then((res) => {

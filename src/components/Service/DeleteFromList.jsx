@@ -11,7 +11,7 @@ const DeleteFromList = (session, book) => {
   try {
     let session_key = session[1];
     axios
-      .delete("http://127.0.0.1:8000/deletefromlist/", {
+      .delete("http://52.66.67.27:8000/deletefromlist/", {
         data: {
           session_key: session_key,
           BookObj: book.BookId,
