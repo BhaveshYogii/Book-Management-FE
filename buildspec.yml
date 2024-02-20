@@ -10,12 +10,11 @@ phases:
       - npm install
   build:
     commands:
-      - ls
       - echo Build started on 'date'
       - npm run build
 artifacts:
   files:
     - '**/*'
     #- "my-app/build/**/*"
-   base-directory: 'dist'
+  #  base-directory: 'dist'
   #discard-paths: yes
