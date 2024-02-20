@@ -5,13 +5,13 @@ phases:
       nodejs: 18
   pre_build:
     commands:
-      - cd Team3-Book-Management-FE
       - echo Installing source NPM dependencies...
       - npm install
       - npm i aos
       - npm install material.ui
   build:
     commands:
+      - ls
       - echo Build started on 'date'
       - npm run build
 artifacts:
