@@ -2,7 +2,7 @@ import axios from "axios";
 
 const SearchBook = async (formData, setBooksData) => {
   try {
-    const response = await fetch("http://52.66.67.27:8000/searchbook/", {
+    const response = await fetch("http://52.66.121.111:8000/searchbook/", {
       method: "POST",
       body: formData,
     });

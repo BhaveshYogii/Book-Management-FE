@@ -12,7 +12,7 @@ const SellerDeleteBook = (session, book) => {
   try {
     let session_key = session[1];
     axios
-      .delete("http://52.66.67.27:8000/sellerdeletebook/", {
+      .delete("http://52.66.121.111:8000/sellerdeletebook/", {
         data: {
           session_key: session_key,
           bookId: book.BookId,

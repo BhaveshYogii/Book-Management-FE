@@ -8,7 +8,7 @@ const AdminGetBooks = (session,setBookData) => {
   try {
     let session_key = session[1];
     axios
-      .post("http://52.66.67.27:8000/admingetbooks/", {
+      .post("http://52.66.121.111:8000/admingetbooks/", {
         session_key: session_key,
       })
       .then((res) => {

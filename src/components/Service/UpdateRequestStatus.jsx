@@ -13,7 +13,7 @@ const UpdateRequestStatus = (session, requestId, requestStatus) => {
   try {
     let session_key = session[1];
     axios
-      .post("http://52.66.67.27:8000/adminupdaterequests/", {
+      .post("http://52.66.121.111:8000/adminupdaterequests/", {
         session_key: session_key,
         requestId: requestId,
         status: requestStatus,

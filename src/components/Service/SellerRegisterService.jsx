@@ -13,7 +13,7 @@ const SellerRegisterService = (session,sellerId) => {
   try {
     let session_key = session[1];
     axios
-      .post("http://52.66.67.27:8000/sellerregister/", {
+      .post("http://52.66.121.111:8000/sellerregister/", {
         session_key: session_key,
         sellerId: sellerId,
       })
