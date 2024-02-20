@@ -4,7 +4,7 @@ import Navbar from "../NavBar/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import loginf from "../Service/LoginService";
-import DefaultLayoutHoc from "src/layout/Default.layout";
+import DefaultLayoutHoc from "../../layout/Default.Layout";
 
 const Login = (props) => {
   const navigate = useNavigate();

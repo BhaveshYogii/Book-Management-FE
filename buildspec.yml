@@ -5,6 +5,7 @@ phases:
       nodejs: 18
   pre_build:
     commands:
+      - cd Team3-Book-Management-FE
       - echo Installing source NPM dependencies...
       - npm install
       - npm i aos
