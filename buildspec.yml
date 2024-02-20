@@ -1,3 +1,4 @@
+
 version: 0.2
 phases:
   install:
@@ -7,6 +8,7 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - npm install
+      - npm i aos
   build:
     commands:
       - echo Build started on 'date'
