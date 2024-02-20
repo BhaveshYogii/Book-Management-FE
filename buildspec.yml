@@ -17,5 +17,5 @@ artifacts:
   files:
     - '**/*'
     #- "my-app/build/**/*"
-  base-directory: '/dist'
+  base-directory: '/'
   #discard-paths: yes
