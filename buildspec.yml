@@ -5,9 +5,10 @@ phases:
       nodejs: 18
   pre_build:
     commands:
-      - cd my-app
       - echo Installing source NPM dependencies...
       - npm install
+      - npm i aos
+      - npm install material.ui
   build:
     commands:
       - echo Build started on 'date'
