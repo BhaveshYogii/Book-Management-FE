@@ -12,7 +12,7 @@ import Navbar from "../NavBar/Navbar";
 import SellerNavBar from "./SellerNavbar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SellerLayoutHoc from "../../layout/Seller.layout";
+import SellerLayoutHoc from "../../layout/Seller.layout.jsx";
 import { useNavigate } from "react-router-dom";
 
 const UploadBooks = (props) => {

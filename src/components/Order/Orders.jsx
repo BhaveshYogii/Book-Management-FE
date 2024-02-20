@@ -6,7 +6,7 @@ import "./Order.css";
 import GetOrderElementsService from "../Service/GetOrderElementsService";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import DefaultLayoutHoc from "../../layout/Default.layout";
+import DefaultLayoutHoc from "../../layout/Default.layout.jsx";
 
 const Order = (props) => {
   const [orders, setOrders] = useState([]);

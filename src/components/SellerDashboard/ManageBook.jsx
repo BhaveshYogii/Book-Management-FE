@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SellerNavBar from "./SellerNavbar";
 import { FaRupeeSign } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import SellerLayoutHoc from "../../layout/Seller.layout";
+import SellerLayoutHoc from "../../layout/Seller.layout.jsx";
 import SellerGetBooksService from "../Service/SellerGetBooksService";
 import SellerDeleteBook from "../Service/SellerDeleteBook";
 import { ToastContainer } from "react-toastify";

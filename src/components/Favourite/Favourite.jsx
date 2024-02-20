@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import AddToCartService from "../Service/AddToCartService";
 import GetListElementsService from "../Service/GetListElementsService";
 import DeleteFromList from "../Service/DeleteFromList";
-import DefaultLayoutHoc from "../../layout/Default.layout";
+import DefaultLayoutHoc from "../../layout/Default.layout.jsx";
 
 const Favourite = (props) => {
 

@@ -5,7 +5,7 @@ import DefaultLayoutHoc from "../../layout/Default.layout";
 import GetCartElementsService from "../Service/GetCartElementsService";
 import { useNavigate } from "react-router-dom";
 import Logo from "/assets/website/logo.png";
-import PlaceOrderService from "../Service/PlaceOrderService";
+import PlaceOrderService from "../Service/PlaceOrderService.jsx";
 
 const Cart = (props) => {
   const [booksData, setBooksData] = useState([]);

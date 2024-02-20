@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SellerRequest from "../Service/SellerRequest";
 import GetRequestStatusService from "../Service/GetRequestStatusService";
 import SellerRegisterService from "../Service/SellerRegisterService";
-import DefaultLayoutHoc from "../../layout/Default.Layout";
+import DefaultLayoutHoc from "../../layout/Default.layout.jsx";
 
 const SellerSignup = (props) => {
   const isAuthenticate = props.isAuthenticate;

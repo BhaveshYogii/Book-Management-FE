@@ -4,7 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { signup } from "../Service/SignupService";
 import { useNavigate } from "react-router-dom";
-import DefaultLayoutHoc from "../../layout/Default.Layout";
+import DefaultLayoutHoc from "../../layout/Default.layout.jsx";
 
 const SignUp = (props) => {
   const navigate = useNavigate();

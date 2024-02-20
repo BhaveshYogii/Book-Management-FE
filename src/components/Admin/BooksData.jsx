@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaRupeeSign } from "react-icons/fa";
-import AdminLayoutHoc from "../../layout/Admin.layout";
+import AdminLayoutHoc from "../../layout/Admin.layout.jsx";
 import { useNavigate } from "react-router-dom";
 
 import AdminGetBooks from "../Service/AdminGetBooks";

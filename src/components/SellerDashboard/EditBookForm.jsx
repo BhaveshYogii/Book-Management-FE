@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Checkbox, Label, Select, TextInput, Textarea } from 'flowbite-react';
-import SellerLayoutHoc from '../../layout/Seller.layout';
+import SellerLayoutHoc from '../../layout/Seller.layout.jsx';
 import { useLocation } from 'react-router-dom';
 import SellerEditService from '../Service/SellerEditService';
 import { ToastContainer } from 'react-toastify';

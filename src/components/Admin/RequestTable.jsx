@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AdminLayoutHoc from "../../layout/Admin.layout";
+import AdminLayoutHoc from "../../layout/Admin.layout.jsx";
 import { useNavigate } from "react-router-dom";
 import AdminGetRequests from "../Service/AdminGetRequests";
 import StatusRow from "./StatusRow";
