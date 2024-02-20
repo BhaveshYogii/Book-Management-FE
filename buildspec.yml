@@ -17,5 +17,8 @@ artifacts:
   files:
     - '**/*'
     #- "my-app/build/**/*"
-  #  base-directory: 'dist'
+   base-directory: 'dist'
   #discard-paths: yes
+cache:
+  paths:
+    - "node_modules/**/*"
