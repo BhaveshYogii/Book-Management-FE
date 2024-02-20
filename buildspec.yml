@@ -1,4 +1,3 @@
-
 version: 0.2
 phases:
   install:
@@ -17,7 +16,7 @@ artifacts:
   files:
     - '**/*'
     #- "my-app/build/**/*"
-   base-directory: 'Team3-Book-Management-FE/'
+  base-directory: 'build'
   #discard-paths: yes
 cache:
   paths:
