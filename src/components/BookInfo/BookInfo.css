@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+
+
+  .product-view {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 15px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    min-height: 90vh;
+    padding-top: 30px;
+  }
+  .bookinfo-btn{
+    border: 1px solid black;
+    border-radius: 50%;
+    padding: 10px;
+  }
+  .bookinfo-btn svg{
+    width: 20px!important;
+    height: 20px!important;
+  }
+  .MuiContainer-root.product-view {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .product-view .image-wrapper img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+    width: 80%;
+  }
+  .MuiTypography-h3{
+    margin-bottom: 10px!important;
+  }
+  .product-view .text {
+    color: #000;
+    width: 100%;
+    text-align: justify;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+  }
+  
+  .product-view .text h2 {
+    /* color: #001524; */
+    color: #1384C6;
+    font-size: 30px;
+    padding-bottom: 30px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+  }
+  .product-view .text p{
+    font-size: 15px;
+  }
+  .product-view .text h3 {
+    color: #000;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .MuiContainer-root.product-view .custom-button {
+    color: white;
+    background-color: #001524;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .image-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  
+  .MuiContainer-root.product-view .custom-button:hover {
+    color: white;
+    background-color: #2a344a;
+  }
+  
+  .product-view .MuiGrid-root .MuiGrid-item {
+    padding: 5px 15px;
+  }
+  
+  .carousel-caption {
+    top: 45%;
+  }
+  
+  .d-block {
+    height: 50vh;
+    opacity: 90%;
+  }
+  
+  .carousel-control-next {
+    display: none !important;
+  }
+  
+  .carousel-control-prev {
+    display: none !important;
+  }
+  
+  .carousel-indicators .active {
+    display: none !important;
+  }
+  
+ 
+
+  @media (max-width: 900px) {
+    .image-wrapper .img{
+      width: 50%!important;
+    }
+  }
